@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-var app = require('../server');
-var debug = require('debug')('sei-students:server');
+var app = require('../app');
+var debug = require('debug')('project-2-wip:server');
 var http = require('http');
 
 /**

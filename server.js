@@ -19,7 +19,9 @@ require('./config/database');
 // configure Passport
 require('./config/passport');
 
-
+console.log(process.env.GOOGLE_CLIENT_ID);
+console.log(process.env.GOOGLE_SECRET);
+console.log(process.env.GOOGLE_CALLBACK);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,6 +58,17 @@ app.use('/', indexRoutes);
 // invalid request, send 404 page
 app.use(function(req, res) {
   res.status(404).send('Cant find that!');
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app;
