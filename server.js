@@ -1,5 +1,6 @@
 // load the env consts
 require('dotenv').config();
+const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
@@ -8,7 +9,10 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const methodOverride = require('method-override');
+
 const indexRoutes = require('./routes/index');
+const projectsRoutes = require('./routes/projects');
+const usersRoutes = require('./routes/users');
 
 
 // create the Express app
@@ -53,6 +57,8 @@ app.use(function (req, res, next) {
 
 // mount all routes with appropriate base paths
 app.use('/', indexRoutes);
+app.use('/projects', projectsRoutes);
+app.use('/', usersRoutes);
 
 
 // invalid request, send 404 page

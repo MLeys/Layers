@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const employeeSchema = new Schema({
+const userSchema = new Schema({
     name: String,
-    employeeNum: Number,
     googleId: {
       type: String,
       required: true
     },
-    address: String, 
+    email: String,
+    avatar: String,
+    // address: String, 
     // headshot: String, // IMAGE
     // startDate: Date,
 
@@ -17,4 +18,4 @@ const employeeSchema = new Schema({
     timestamps: true
   });
 
-module.exports = mongoose.model('User', employeeSchema);
+module.exports = mongoose.model('User', userSchema);
