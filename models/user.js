@@ -13,6 +13,12 @@ const userSchema = new Schema({
     // address: String, 
     // headshot: String, // IMAGE
     // startDate: Date,
+    // ADD ADDITIONAL WHEN READY FOR USER INFO
+    // rocks: {total: Number, 
+    //         complete: Number,
+    //         completion: Number
+    // }
+    
 
   }, {
     timestamps: true
