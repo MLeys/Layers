@@ -10,20 +10,36 @@ module.exports = {
 
 async function addAssigned(req, res) {
     try {
-        // const projectsDocs = await Project.find({}).exec();
-        const projectDoc = await Project.findByIdAndUpdate(req.params.id, function(err, projectDoc) {
-            projectDoc.usersAssigned.push(req.body);
+        console.log('===========================================');
+        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+        console.log(req.params.id, ' <=== req.params.id')
+        console.log('===========================================');
+        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+        console.log(req.body, ' <-- req.body') // EMPTY
 
+        console.log(req.userId, ' <-- req.userId')
+        
+        const projectsDocs = await Project.find({}).exec();
+        console.log(projectsDocs, ' <-- projectsDocs')
+        // const projectsDocs = await Project.find({}).exec();
+        const projectDoc = await Project.findById(req.params.id);
+            console.log(projectDoc, ' <-- projectDoc')
+            projectDoc.usersAssigned.push(req.user.id);
+            
+            console.log('===========================================');
+            console.log(projectDoc, ' <------- projectDoc')
+            console.log('+++++++++++++++++++++++++++++++++++++++++++');
+            
+            // _id: new ObjectId("6391613fe3f52ed1617e577e"),
             projectDoc.save(function(err) {
-                // res.redirect(`/projects/${projectDoc}`);
                 console.log('===========================================');
+                console.log(projectDoc, ' <------- projectDoc2')
                 console.log('+++++++++++++++++++++++++++++++++++++++++++');
-                console.log(projectDoc)
-                console.log('===========================================');
-                console.log('+++++++++++++++++++++++++++++++++++++++++++');
-                res.render('projects/all', {project: projectDoc})
+                res.redirect(`/projects/all`);
+
+                // res.render('projects/all', {project: projectDoc})
             })       
-        })
+        
 
     } catch(err) {
         console.log(err);
