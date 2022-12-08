@@ -86,6 +86,9 @@ async function newProject(req, res) {
 async function index(req, res) {
     try {
         const projectsDocs = await Project.find({}).exec();
+        // const userProjectsDocs = projectsDocs.usersAssigned.includes(user);
+        console.log(projectsDocs.usersAssigned, '<======== user projects only ^^^^^^^')
+        console.log(req.user)
 
         res.render('projects/projects', { projects: projectsDocs });
        
