@@ -4,18 +4,18 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
     title: String,
-    userCreated: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+    userCreated: {type: Schema.Types.ObjectId, ref: 'User'},
     type: String,  // team/ individual ect
     priority: String, // high/ low/ intermediate
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
         rocks: [{type: Schema.Types.ObjectId, ref: 'Rock'}],
-    progress: {
-        total: Number,
-        rocks: {total: Number, 
-            complete: Number,
-            completion: Number} 
-        },
-    complete: Boolean,
+    // progress: {
+    //     total: Number,
+    //     rocks: {total: Number, 
+    //         complete: Number,
+    //         completion: Number} 
+    //     },
+    // complete: Boolean,
     
   }, {
     timestamps: true
