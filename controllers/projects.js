@@ -3,7 +3,18 @@ const Project = require("../models/project");
 module.exports = {
     index,
     all,
+    new: newProject,
 };
+
+async function newProject(req, res) {
+    try {
+        res.render('projects/new');
+
+    } catch(err) {
+        console.log(err);
+        console.log('TERMINAL ERROR ---> ctrl.projects.new')
+    }
+}
 
 async function index(req, res) {
     try {
@@ -11,7 +22,7 @@ async function index(req, res) {
 
         res.render('projects/projects', { projects: projectsDocs });
     } catch(err) {
-        console.log('ERROR ---->ctrl.project.index')
+        console.log('TERMINAL ERROR ---->ctrl.project.index')
     }
 }
 

@@ -10,7 +10,9 @@
 <body>
     <nav>
       <a href="/projects">--Home--</a>
+      
       <% if (user) { %>
+        <a href="/projects/new"> New Project</a>
         <a href="/projects/all"> Projects</a>
         <a href="/logout">LOG OUT</a>
         <% } else { %>
