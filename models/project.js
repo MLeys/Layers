@@ -8,7 +8,7 @@ const projectSchema = new Schema({
     type: String,  // team/ individual ect
     priority: String, // high/ low/ intermediate
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
-    rocks: [{type: Schema.Types.ObjectId, ref: 'Rock'}],
+        rocks: [{type: Schema.Types.ObjectId, ref: 'Rock'}],
     progress: {
         total: Number,
         rocks: {total: Number, 

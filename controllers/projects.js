@@ -7,7 +7,9 @@ module.exports = {
 
 async function index(req, res) {
     try {
-        res.render('projects/projects')
+        const projectsDocs = await Project.find({}).exec();
+
+        res.render('projects/projects', { projects: projectsDocs });
     } catch(err) {
         console.log('ERROR ---->ctrl.project.index')
     }
