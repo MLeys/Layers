@@ -7,6 +7,7 @@ const isLoggedIn = require('../config/auth')
 
 
 router.get('/', isLoggedIn, projectCtrl.index);
+router.get('/all', projectCtrl.all);
 
 
 module.exports = router;

@@ -6,7 +6,7 @@ const passport = require('passport');
 
 // /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.redirect('/projects');
+  res.render('index');
 });
 
 
@@ -27,7 +27,7 @@ router.get('/oauth2callback', passport.authenticate(
   'google',
   {
     successRedirect: '/projects',
-    failureRedirect: '/projects'
+    failureRedirect: '/'
   }
 ));
 
