@@ -6,7 +6,22 @@ module.exports = {
     new: newProject,
     create,
     add: addAssigned,
+    show,
 };
+
+
+async function show(req, res) {
+    try {
+        const projectDoc = await Project.findById(req.params.id).exec();
+        console.log(projectDoc, ' <-- Project Doc ---')
+
+        res.render('projects/show', { project: projectDoc});
+    } catch(err) {
+        console.log(err);
+        console.log('TERMINAL ERROR ---> ctrl.projects.show')
+    }
+}
+
 
 async function addAssigned(req, res) {
     try {
