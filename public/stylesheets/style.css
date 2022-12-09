@@ -10,7 +10,7 @@ body {
   margin: 0;
   height: 100vh;
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 0px 1fr;
   grid-template-areas:
     "nav"
     "main"
@@ -37,7 +37,7 @@ body > main {
   flex-direction: column;
   align-items: center;
   background-color: #E8ECEB;
-  padding: 20px;
+  padding: 10px;
   overflow-y: scroll;
 }
 

@@ -12,10 +12,11 @@ module.exports = {
 
 async function show(req, res) {
     try {
-        const projectDoc = await Project.findById(req.params.id).populate("usersAssigned").exec();
-        console.log(projectDoc, ' <-- Project Doc ---')
 
-        res.render('projects/show', { project: projectDoc});
+        // const projectDoc = await Project.findById(req.params.id).populate("usersAssigned").exec();
+        // console.log(projectDoc, ' <-- Project Doc ---')
+
+        res.render('projects/show');
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.show')

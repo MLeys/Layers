@@ -1,48 +1,8 @@
 <%- include('../partials/header') %>
 
 <h1>Show page</h1>
-<section id="show-page">
-    <div>Title: </div>
-    <div>
-      <%= movie.title %>
-    </div>
-    <div>Release Year: </div>
-    <div>
-      <%= movie.releaseYear %>
-    <!-- </div> -->
-    <div>Rating: </div>
-    <div>
-      <%= movie.mpaaRating %>
-    </div>
-    <div>Now Showing: </div>
-    <div>
-      <%= movie.nowShowing ? 'Yes' : 'Nope' %>
-    </div>
-    <!-- start cast list -->
-    <div>Cast:</div>
-    <ul>
-      <% movie.cast.forEach(actor=> { %>
-        <li>
-          <%= actor.name %> <small>
-              <%= actor.born.toLocaleDateString() %>
-            </small>
-        </li>
-        <% }) %>
-    </ul>
-    <!-- end cast list -->
-  </section>
-  <!-- add to cast form below this comment -->
-  <br />
-  <br />
-  <form id="add-per-to-cast" action="/movies/<%= movie._id %>/performers" method="POST">
-    <select name="performerId">
-      <%- performers.map(p=>
-        `<option value="${p._id}">${p.name}</option>`
-        ).join('') %>
 
 
-    </select>
-    <button type="submit">Add to Cast</button>
-  </form>
+
 
 <%- include('../partials/footer') %>
