@@ -7,8 +7,8 @@ const isLoggedIn = require('../config/auth')
 
 
 router.get('/', isLoggedIn, projectCtrl.index);
+router.get('/all', projectCtrl.all);
 router.get('/new', isLoggedIn, projectCtrl.new);
-
 
 
 router.post('/', isLoggedIn, projectCtrl.create);
@@ -17,9 +17,9 @@ router.post('/', isLoggedIn, projectCtrl.create);
 // router.delete('/:id', isLoggedIn, projectCtrl.delete);
 
 
-router.post('/:id', isLoggedIn, projectCtrl.add); 
 router.get('/:id', isLoggedIn, projectCtrl.show);
-router.get('/all', projectCtrl.all);
+router.post('/:id', isLoggedIn, projectCtrl.add); 
+
 // addAssigned - add logged in user to prroject
 
 

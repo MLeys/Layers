@@ -3,30 +3,71 @@
 <h1> MY PROJECTS/ Projects</h1>
 <br>
 
+<div>
+  <table>
+    <thead>
+      <tr>
+        <title>myProject</title>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% projects.forEach(function(p) { %>
+      <% if (p.usersAssigned.includes(user._id)) { %>         
+            <tr>
+              <td> <a href="/projects/<%= p._id %>"> <%= p.title %></a> </td>
+              <td><%= p.type %></td>
+              <td><%= p.priority %> </td>
+            </tr>
+        <% }  %>
+    <% }); %>
+    </tbody>
+  </table>
+</div>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <title>myRocks</title>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Priority</th>
+        <th>Difficulty</th>
+        <th>userId / user._id</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    <% rocks.forEach(function(r) { %>
+      <% if (r.userId = user) { %>         
+            <tr>
+              <td><%= r.title %></td>
+              <td><%= r.category %></td>
+              <td><%= r.priority %></td>
+              <td><%= r.difficulty %></td>
+              <td><%= r.userId %> <br> </td>
+            </tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            
+            <tr>
+              <td></td><td></td><td></td><td>user._id</td>
+              <td><%= user._id %> </td>
+            </tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            
+        <% }  %>
+    <% }); %>
+    </tbody>
+  </table>
 
-<table>
-  <thead>
-    <tr>
-      <title>Project</title>
-    </tr>
-    <tr>
-      <th>Project</th>
-      <th>Type</th>
-      <th>Priority</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% projects.forEach(function(p) { %>
-    <% if (p.usersAssigned.includes(user._id)) { %>         
-          <tr>
-            <td> <a href="/projects/<%= p._id %>"> <%= p.title %></a> </td>
-            <td><%= p.type %></td>
-            <td><%= p.priority %> </td>
-          </tr>
-      <% }  %>
-  <% }); %>
-  </tbody>
-</table>
+</div>
+
 
 
 

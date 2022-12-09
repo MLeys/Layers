@@ -14,7 +14,7 @@ module.exports = {
 async function show(req, res) {
     try {
         console.log(req.params.id)
-        const projectDoc = await Project.findById(req.params.id).populate("usersAssigned").exec();
+        const projectDoc = await Project.findById(req.params.id);
         const rockDocs = await Rock.find( {projectId: projectDoc});
 
 
@@ -88,11 +88,15 @@ async function newProject(req, res) {
 async function index(req, res) {
     try {
         const projectsDocs = await Project.find({}).exec();
+        const rocksDocs = await Rock.find({}).exec();
         // const userProjectsDocs = projectsDocs.usersAssigned.includes(user);
         console.log(projectsDocs.usersAssigned, '<======== user projects only ^^^^^^^')
         console.log(req.user)
 
-        res.render('projects/index', { projects: projectsDocs });
+        res.render('projects/index', { 
+            projects: projectsDocs,
+            rocks: rocksDocs,
+        });
        
     } catch(err) {
         console.log('TERMINAL ERROR ---->ctrl.project.index')
