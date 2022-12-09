@@ -13,6 +13,7 @@ const methodOverride = require('method-override');
 const indexRoutes = require('./routes/index');
 const projectsRoutes = require('./routes/projects');
 const usersRoutes = require('./routes/users');
+const rocksRoutes = require('./routes/rocks')
 
 
 // create the Express app
@@ -59,6 +60,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRoutes);
 app.use('/projects', projectsRoutes);
 app.use('/', usersRoutes);
+app.use('/projects:id/rocks', rocksRoutes);
 
 
 // invalid request, send 404 page

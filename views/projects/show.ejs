@@ -3,6 +3,70 @@
 <h1>Show page</h1>
 
 
+<section id="show-page">
+  <div>Title: 
+    <%= project.title %>
+  </div>
+  <div>Creator: 
+    <%= project.userCreated %>
+
+  <div>Type: 
+    <%= project.priority %>
+  </div>
+
+  <div>Team:
+  <ul>
+    <% project.usersAssigned.forEach(p=> { %>
+      <li>
+        <small><%= p.id %> </small>
+      </li>
+      <% }) %>
+  </ul>
+  </div>
+  <div>Rocks:
+  <ul>
+    <% rocks.forEach(r=> { %>
+      <li>
+        <small><%= r.id %> </small>
+      </li>
+      <% }) %>
+  </ul>
+  </div>
+
+</section>
+<section>
+  <h3>Add Rock</h3>
+  <form id="add-review-form" method="POST"
+  action="/projects/<%= project._id %>/rocks">
+    <label>Title:</label>
+      <input type="text" name="title">
+    <label>Description:</label>
+      <textarea name="description"></textarea>
+    <label>Category:</label>
+      <select name="category" id="">
+        <option value="Personal">Personal</option>
+        <option value="Project">Project</option>
+        <option value="Private">Private</option>
+      </select>
+    <label>Priority:</label>
+      <select name="piority" id="">
+        <option value="High">High</option>
+        <option value="Moderate">Moderate</option>
+        <option value="Low">Low</option>
+      </select>
+    <label>Difficulty</label>
+      <input type="Number" name="difficulty">
+  
+    <label>AsignUser-dropdown of allusers:</label>
+      <select name="userId">
+        <option></option>
+      </select>
+  <label>
+    <input type="submit" value="Add ">
+  </label>
+  
+</form>
+</section>
 
 
 <%- include('../partials/footer') %>

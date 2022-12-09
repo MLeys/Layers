@@ -11,7 +11,7 @@ const rockSchema = new Schema({
     
     priority: String, // high/ low/ intermediate
     // steps: [{type: Schema.Types.ObjectId, ref: 'Step'}],  // ADD LATER
-    difficulty: {max: 10, min:1},
+    difficulty: {type: Number, max: 10, min:1},
     progress: Number,
     complete: Boolean,
     

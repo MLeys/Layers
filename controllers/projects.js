@@ -1,4 +1,5 @@
 const Project = require("../models/project");
+const Rock = require("../models/rock");
 
 module.exports = {
     index,
@@ -14,9 +15,17 @@ async function show(req, res) {
     try {
         console.log(req.params.id)
         const projectDoc = await Project.findById(req.params.id).populate("usersAssigned").exec();
-        console.log(projectDoc, ' <-- Project Doc ---')
+        const rocksDocs = await Rock.find( {userId: projectDoc});
 
-        res.render('projects/show');
+
+        console.log('===========================================');
+        console.log(rocksDocs, ' <------- rocksDocs')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+
+        res.render('projects/show', { 
+            project: projectDoc,
+            rocks: rocksDocs
+        });
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.show')
@@ -25,38 +34,14 @@ async function show(req, res) {
 
 
 async function addAssigned(req, res) {
-    try {
-        console.log('===========================================');
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
-        console.log(req.params.id, ' <=== req.params.id')
-        console.log('===========================================');
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
-        console.log(req.body, ' <-- req.body') // EMPTY
-
-        console.log(req.userId, ' <-- req.userId')
-        
+    try {        
         const projectsDocs = await Project.find({}).exec();
-        console.log(projectsDocs, ' <-- projectsDocs')
-        // const projectsDocs = await Project.find({}).exec();
         const projectDoc = await Project.findById(req.params.id);
-            console.log(projectDoc, ' <-- projectDoc')
-            projectDoc.usersAssigned.push(req.user.id);
-            
-            console.log('===========================================');
-            console.log(projectDoc, ' <------- projectDoc')
-            console.log('+++++++++++++++++++++++++++++++++++++++++++');
-            
-            // _id: new ObjectId("6391613fe3f52ed1617e577e"),
-            projectDoc.save(function(err) {
-                console.log('===========================================');
-                console.log(projectDoc, ' <------- projectDoc2')
-                console.log('+++++++++++++++++++++++++++++++++++++++++++');
-                res.redirect(`/projects/all`);
+        projectDoc.usersAssigned.push(req.user.id);
 
-                // res.render('projects/all', {project: projectDoc})
-            })       
-        
-
+        projectDoc.save(function(err) {
+            res.redirect(`/projects/all`);
+        })       
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---->ctrl.project.addUserToProject')
