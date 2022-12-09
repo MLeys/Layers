@@ -60,7 +60,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRoutes);
 app.use('/projects', projectsRoutes);
 app.use('/', usersRoutes);
-app.use('/projects:id/rocks', rocksRoutes);
+app.use('/', rocksRoutes);
 
 
 // invalid request, send 404 page

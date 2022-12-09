@@ -1,5 +1,6 @@
 
 const Project = require("../models/project");
+const Rock = require("../models/rock");
 
 module.exports = {
   create,
@@ -8,13 +9,16 @@ module.exports = {
 
 async function create(req, res) {
     try {        
-        const projectsDocs = await Project.find({});
         const projectDoc = await Project.findById(req.params.id);
+        
+        req.body.userId = req.user._id;
+        req.body.userName = req.user.name;
+        req.body.userAvatar = req.user.avatar;
+        req.body.projectId = projectDoc._id;
+        
+        const newRock = await Rock.create(req.body);
+        console.log(newRock, '++++++++++++++++++++++++++++++ New Rock')
 
-        console.log(req.body, '========= REQ BODY')
-
-
-        projectDoc.rocks.push(req.body);
         projectDoc.save(function(err) {
             res.redirect(`/projects/${ req.params.id }`);
             // res.redirect(`/projects/${ projectDoc.id }`);
