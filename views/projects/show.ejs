@@ -13,12 +13,21 @@
   <div>Type: 
     <%= project.priority %>
   </div>
-
+<table>
+  <thead>
+    <tr>
+      <title> <%= project.title %> </title>
+    </tr>
+    <tr>
+      <th> </th>
+    </tr>
+  </thead>
+</table>
   <div>Team:
   <ul>
-    <% project.usersAssigned.forEach(p=> { %>
-      <li>
-        <small><%= p.id %> </small>
+    <% project.usersAssigned.forEach(user=> { %>
+      <li> 
+        <small><%= user.name %> </small>
       </li>
       <% }) %>
   </ul>
@@ -27,7 +36,7 @@
   <ul>
     <% rocks.forEach(r=> { %>
       <li>
-        <small><%= r.id %> </small>
+        <small><%= r.title %> </small>
       </li>
       <% }) %>
   </ul>
@@ -40,28 +49,33 @@
   action="/projects/<%= project._id %>/rocks">
     <label>Title:</label>
       <input type="text" name="title">
+      <br>
     <label>Description:</label>
       <textarea name="description"></textarea>
+      <br>
     <label>Category:</label>
       <select name="category" id="">
         <option value="Personal">Personal</option>
         <option value="Project">Project</option>
         <option value="Private">Private</option>
       </select>
+      <br>
     <label>Priority:</label>
       <select name="piority" id="">
         <option value="High">High</option>
         <option value="Moderate">Moderate</option>
         <option value="Low">Low</option>
       </select>
+      <br>
     <label>Difficulty</label>
       <input type="Number" name="difficulty">
-  
+  <br>
     <label>AsignUser-dropdown of allusers:</label>
       <select name="userId">
         <option></option>
       </select>
-  <label>
+    <label>
+      <br>
     <input type="submit" value="Add ">
   </label>
   
