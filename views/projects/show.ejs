@@ -1,15 +1,13 @@
 <%- include('../partials/header') %>
 
-<h1>Show page</h1>
+<h1><%= project.title %> </h1>
 
 
 <section id="show-page">
-  <div>Title: 
-    <%= project.title %>
-  </div>
-  <div>Creator: 
-    <%= project.userCreated %>
-
+  <div>
+    <small>Creator: 
+    <%= project.userCreated %> 
+      </small>
   <div>Type: 
     <%= project.priority %>
   </div>
