@@ -15,16 +15,16 @@ async function show(req, res) {
     try {
         console.log(req.params.id)
         const projectDoc = await Project.findById(req.params.id).populate("usersAssigned").exec();
-        const rocksDocs = await Rock.find( {userId: projectDoc});
+        const rockDocs = await Rock.find( {projectId: projectDoc});
 
 
         console.log('===========================================');
-        console.log(rocksDocs, ' <------- rocksDocs')
+        console.log(rockDocs, ' <------- rocksDocs')
         console.log('+++++++++++++++++++++++++++++++++++++++++++');
 
         res.render('projects/show', { 
             project: projectDoc,
-            rocks: rocksDocs
+            rocks: rockDocs
         });
     } catch(err) {
         console.log(err);
