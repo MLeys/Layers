@@ -1,42 +1,32 @@
 <%- include('../partials/header') %>
 
-<h1> All Projects</h1>
-
-<% if (projects.length) { %>
-    <table>
-      <thead>
-        <tr>
-          <th>Created</th>
-          <th>title</th>
-          <th>type</th>
-          <th>priority</th>
-        </tr>
-      </thead>
-      <tbody>
-          <% projects.forEach(function(p) { %>
-              <tr>
-                <td><%= p.createdAt.toLocaleDateString() %> </td>
-                <td><%= p.title %></td>
-                <td><%= p.type %></td>
-                <td><%= p.priority %> </td>
-                <td>
-                    <form id = "add-review-form" action="/projects/<%= p.id %>"
-                         method="POST">
-                        <button type="submit">Assign</button>
-                      </form>  
-
-                </td>
-
-              </tr>
-              <% }); %>
-
-      </tbody>
-    </table>
-    <% } else { %>
-      <h5>No Projects Available</h5>
-      <% } %>
+<h1> MY PROJECTS/ Projects</h1>
+<br>
 
 
+<table>
+  <thead>
+    <tr>
+      <title>Project</title>d
+    </tr>
+    <tr>
+      <th>Project</th>
+      <th>Type</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% projects.forEach(function(p) { %>
+    <% if (p.usersAssigned.includes(user._id)) { %>         
+          <tr>
+            <td> <a href="/projects/<%= p._id %>"> <%= p.title %></a> </td>
+            <td><%= p.type %></td>
+            <td><%= p.priority %> </td>
+          </tr>
+      <% }  %>
+  <% }); %>
+  </tbody>
+</table>
 
 
 

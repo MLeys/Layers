@@ -19,6 +19,4 @@ router.post('/:id', isLoggedIn, projectCtrl.add);
 router.get('/:id', isLoggedIn, projectCtrl.show);
 
 
-
-
 module.exports = router;

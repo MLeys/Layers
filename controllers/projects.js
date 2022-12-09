@@ -107,7 +107,7 @@ async function index(req, res) {
         console.log(projectsDocs.usersAssigned, '<======== user projects only ^^^^^^^')
         console.log(req.user)
 
-        res.render('projects/projects', { projects: projectsDocs });
+        res.render('projects/index', { projects: projectsDocs });
        
     } catch(err) {
         console.log('TERMINAL ERROR ---->ctrl.project.index')
@@ -119,7 +119,7 @@ async function all(req, res) {
         const projectsDocs = await Project.find({}).exec();
 
 
-        res.render('projects/index', { projects: projectsDocs});
+        res.render('projects/projects', { projects: projectsDocs});
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.all')
