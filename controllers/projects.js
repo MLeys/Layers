@@ -25,7 +25,10 @@ module.exports = {
 async function unAssign(req, res) {
     try {    
         console.log(req.params.id, ' ctrl.project.unAssign <----- req.params.id')
-        const projectDoc = await Project.findById(req.params.id);
+        const projectDoc = await Project.findById(req.params.id)
+        .populate("userCreated")
+        .populate("usersAssigned")
+        .exec();
         console.log(projectDoc, '------------------------------- projectDoc ')
         projectDoc.usersAssigned.pop(req.user._id);
         console.log(projectDoc, '------------------------------- projectDoc2 ')
@@ -48,7 +51,7 @@ async function deleteProject(req, res) {
 
         const projectDoc = await Project.findByIdAndRemove(req.params.id);
 
-        res.redirect(`all`);
+        res.redirect('/projects/all');
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.deleteProject')
@@ -58,9 +61,17 @@ async function deleteProject(req, res) {
 
 async function show(req, res) {
     try {
-        console.log(req.params.id)
-        const projectDoc = await Project.findById(req.params.id);
-        const rocksDocs = await Rock.find( {projectId: projectDoc});
+        console.log(req.params.id, '<-- req.params.id===ctrl.project.show')
+        const projectDoc = await Project.findById(req.params.id)
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks")
+            .exec();
+        const rocksDocs = await Rock.find( {projectId: projectDoc})
+            .populate("userId")
+            .populate("projectId")
+            .exec();
+
 
 
         // console.log('===========================================');
@@ -80,6 +91,7 @@ async function show(req, res) {
 
 async function addAssigned(req, res) {
     try {        
+        console.log(req.params.id, '<-- req.params.id===ctrl.project.addAssigned')
         const projectDocs = await Project.find({});
         const projectDoc = await Project.findById(req.params.id);
         projectDoc.usersAssigned.push(req.user.id);
@@ -107,13 +119,27 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        let userId = req.userId
+        console.log('===========================================');
+        console.log('===========================================');
+        console.log(req.params.id, ' <------- req.params.id')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+        console.log(req.body, ' <------- req.body')
+
         const newProject = await Project.create(req.body);
 
         newProject.userCreated = req.user;
-        newProject.save(function() {});
+        
+        newProject.save(function(err) {
+            console.log('+++++++++++++++++++++++++++++++++++++++++++');
+            console.log(newProject, ' <------- newProject')
+            console.log('===========================================');
+            console.log('===========================================');
+            res.redirect('/projects/all')
 
-        res.redirect('/projects/all')
+        });
+        // res.redirect('/projects/all')
+
+        
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.create')

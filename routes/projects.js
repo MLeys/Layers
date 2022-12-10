@@ -8,8 +8,9 @@ const isLoggedIn = require('../config/auth')
 
 router.get('/', isLoggedIn, projectCtrl.index);
 router.get('/all', isLoggedIn, projectCtrl.all);
-router.get('/:id', isLoggedIn, projectCtrl.show);
 router.get('/new', isLoggedIn, projectCtrl.new);
+router.get('/:id', isLoggedIn, projectCtrl.show);
+
 
 
 router.post('/', isLoggedIn, projectCtrl.create);

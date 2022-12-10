@@ -16,10 +16,10 @@
           <% projects.forEach(function(p) { %>
               <tr>
                 <td><%= p.createdAt.toLocaleDateString() %> </td>
-                <td><%= p.title %></td>
+                <td><a href="/projects/<%= p._id %>"> <%= p.title %></a></td>
                 <td><%= p.type %></td>
                 <td><%= p.priority %> </td>
-                <% if (!p.usersAssigned.includes(user._id)) {%> 
+                <% if (p.usersAssigned.includes(user._id)) {%> 
                   <td>
                     <form action="/projects/<%= p._id %>?_method=DELETE" method="POST">
                       <button type="submit">Delete</button>
