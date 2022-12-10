@@ -3,11 +3,14 @@ const Rock = require("../models/rock");
 
 module.exports = {
     index,
-    all,
     new: newProject,
     create,
-    add: addAssigned,
     show,
+    all,
+    
+    
+    add: addAssigned,
+    
 };
 
 
@@ -18,9 +21,9 @@ async function show(req, res) {
         const rockDocs = await Rock.find( {projectId: projectDoc});
 
 
-        console.log('===========================================');
-        console.log(rockDocs, ' <------- rocksDocs')
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+        // console.log('===========================================');
+        // console.log(rockDocs, ' <------- rocksDocs')
+        // console.log('+++++++++++++++++++++++++++++++++++++++++++');
 
         res.render('projects/show', { 
             project: projectDoc,
@@ -35,7 +38,7 @@ async function show(req, res) {
 
 async function addAssigned(req, res) {
     try {        
-        const projectsDocs = await Project.find({}).exec();
+        const projectsDocs = await Project.find({});
         const projectDoc = await Project.findById(req.params.id);
         projectDoc.usersAssigned.push(req.user.id);
 
@@ -50,7 +53,7 @@ async function addAssigned(req, res) {
 
 async function index(req, res) {
     try {
-        const projectsDocs = await Project.find({}).exec();
+        const projectsDocs = await Project.find({});
 
         res.render('projects/projects', { projects: projectsDocs });
        
@@ -87,11 +90,11 @@ async function newProject(req, res) {
 
 async function index(req, res) {
     try {
-        const projectsDocs = await Project.find({}).exec();
-        const rocksDocs = await Rock.find({}).exec();
+        const projectsDocs = await Project.find({});
+        const rocksDocs = await Rock.find({});
         // const userProjectsDocs = projectsDocs.usersAssigned.includes(user);
-        console.log(projectsDocs.usersAssigned, '<======== user projects only ^^^^^^^')
-        console.log(req.user)
+        // console.log(projectsDocs.usersAssigned, '<======== user projects only ^^^^^^^')
+        // console.log(req.user)
 
         res.render('projects/index', { 
             projects: projectsDocs,
@@ -105,7 +108,7 @@ async function index(req, res) {
 
 async function all(req, res) {
     try {
-        const projectsDocs = await Project.find({}).exec();
+        const projectsDocs = await Project.find({});
 
 
         res.render('projects/projects', { projects: projectsDocs});
