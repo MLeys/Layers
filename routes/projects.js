@@ -15,7 +15,7 @@ router.get('/new', isLoggedIn, projectCtrl.new);
 router.post('/', isLoggedIn, projectCtrl.create);
 // router.get('/:id/edit', isLoggedIn, projectCtrl.edit);
 // router.put('/:id', isLoggedIn, projectCtrl.update);
-// router.delete('/:id', isLoggedIn, projectCtrl.delete);
+router.delete('/:id', isLoggedIn, projectCtrl.delete);
 
 
 
