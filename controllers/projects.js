@@ -17,15 +17,22 @@ module.exports = {
 async function deleteProject(req, res) {
     try {
         console.log(req.params.id)
-        const projectDoc = await Project.findById(req.params.id);
-        const rockDocs = await Rock.find( {projectId: projectDoc});
+        console.log('===========================================');
+        console.log('===========================================');
+        console.log(req.params.id, ' <------- req.params.id')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+        console.log(req.body, ' <------- req.body')
+        console.log('===========================================');
+        console.log('===========================================');
+        const projectDoc = await Project.findByIdAndRemove(req.params.id);
+        // const rockDocs = await Rock.find( {projectId: projectDoc});
 
 
         // console.log('===========================================');
         // console.log(rockDocs, ' <------- rocksDocs')
         // console.log('+++++++++++++++++++++++++++++++++++++++++++');
 
-        res.redirect(`projects/`);
+        res.redirect(`all`);
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.deleteProject')

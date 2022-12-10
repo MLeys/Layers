@@ -22,11 +22,7 @@
               <td> <a href="/projects/<%= p._id %>"> <%= p.title %></a> </td>
               <td><%= p.type %></td>
               <td><%= p.priority %> </td>
-              <td>                        
-                <form action="/projects/<%= p._id %>?_method=DELETE" method="POST">
-                  <button type="submit">UnAssign</button>
-                </form>
-              </td>
+
             </tr>
         <% }  %>
     <% }); %>
