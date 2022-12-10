@@ -129,14 +129,10 @@ async function create(req, res) {
         console.log(req.params.id, ' <------- req.params.id')
         console.log('+++++++++++++++++++++++++++++++++++++++++++');
         console.log(req.body, ' <------- req.body')
+        req.body.userCreated = req.user._id;
+        const newProject = await Project.create(req.body);
 
-        const newProject = await Project.create(req.body)
-            .populate("userCreated")
-            .populate("usersAssigned")
-            .populate("rocks")
-            .exec();
-
-        newProject.userCreated = req.user;
+       
         
         newProject.save(function(err) {
             console.log('+++++++++++++++++++++++++++++++++++++++++++');
@@ -146,10 +142,6 @@ async function create(req, res) {
             res.redirect('/projects/all')
 
         })            
-            .populate("userCreated")
-            .populate("usersAssigned")
-            .populate("rocks")
-            .exec();
         // res.redirect('/projects/all')
 
         

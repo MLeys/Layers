@@ -4,13 +4,8 @@ const Rock = require("../models/rock");
 
 module.exports = {
   create,
-//   delete: deleteReview
 };
 
-        // console.log('**************************************');
-        // console.log('**************************************');
-        // console.log(req.body, '++++++++++++++++++++ req.body')
-        // console.log(req.params, '++++++++++++++++++++ req.params')
 
 async function create(req, res) {
     try {    
@@ -33,7 +28,6 @@ async function create(req, res) {
             .populate("projectId")
             .populate("userId")
             .exec();
-            
             rockDoc.save( function(err) {
                 if (err) return res.send('projectDoc SAve Error rocks controller create');
                 
@@ -44,24 +38,12 @@ async function create(req, res) {
                     .populate("rocks")
                     .exec();
 
-
-                
                 projectDoc.save(function(err) {            
 
                     res.redirect(`/projects/${ req.params.id }`);
                     // res.redirect(`/projects/${ projectDoc.id }`);
                 })       
             })        
-
-        // NEED TO ADD ROCK to PROJECT AND SAVE (maybe in update function?)
-        console.log(projectDoc, '------------------------------- projectDoc ')
-        console.log(newRock, '------------------------------- newRock ');
-        console.log(rockDoc, '------------------------------- rockDoc ');
-        console.log('********************************************************');
-        console.log('********************************************************');
-        
-        // SAVE rockDoc after changes!
-
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR <-- ctrl.rocks.create')
