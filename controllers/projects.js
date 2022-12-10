@@ -8,29 +8,45 @@ module.exports = {
     show,
     all,
     delete: deleteProject,
+    unAssign,
     
     
     add: addAssigned,
     
 };
+// console.log('===========================================');
+// console.log('===========================================');
+// console.log(req.params.id, ' <------- req.params.id')
+// console.log('+++++++++++++++++++++++++++++++++++++++++++');
+// console.log(req.body, ' <------- req.body')
+// console.log('===========================================');
+// console.log('===========================================');
+
+async function unAssign(req, res) {
+    try {    
+        console.log(req.params.id, ' ctrl.project.unAssign <----- req.params.id')
+        const projectDoc = await Project.findById(req.params.id);
+        console.log(projectDoc, '------------------------------- projectDoc ')
+        projectDoc.usersAssigned.pop(req.user._id);
+        console.log(projectDoc, '------------------------------- projectDoc2 ')
+
+
+        projectDoc.save(function(err) {
+            res.redirect(`/projects`);
+        })           
+    } catch(err) {
+        console.log(err);
+        console.log('TERMINAL ERROR <-- ctrl.projects.unAssign')
+    }
+}
+
+
 
 async function deleteProject(req, res) {
     try {
-        console.log(req.params.id)
-        console.log('===========================================');
-        console.log('===========================================');
-        console.log(req.params.id, ' <------- req.params.id')
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
-        console.log(req.body, ' <------- req.body')
-        console.log('===========================================');
-        console.log('===========================================');
+        console.log(req.params.id, ' ctrl.project.deleteProject <----- req.params.id')
+
         const projectDoc = await Project.findByIdAndRemove(req.params.id);
-        // const rockDocs = await Rock.find( {projectId: projectDoc});
-
-
-        // console.log('===========================================');
-        // console.log(rockDocs, ' <------- rocksDocs')
-        // console.log('+++++++++++++++++++++++++++++++++++++++++++');
 
         res.redirect(`all`);
     } catch(err) {
