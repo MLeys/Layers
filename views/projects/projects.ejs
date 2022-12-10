@@ -19,13 +19,15 @@
                 <td><%= p.title %></td>
                 <td><%= p.type %></td>
                 <td><%= p.priority %> </td>
-                <td>
-                    <form id = "add-review-form" action="/projects/<%= p.id %>"
-                         method="POST">
-                        <button type="submit">Assign</button>
-                      </form>  
+                <% if (!p.usersAssigned.includes(user._id)) {%> 
+                  <td>
+                      <form id = "add-review-form" action="/projects/<%= p.id %>"
+                          method="POST">
+                          <button type="submit">Assign</button>
+                        </form>  
 
-                </td>
+                  </td>
+                <% } %> 
 
               </tr>
               <% }); %>

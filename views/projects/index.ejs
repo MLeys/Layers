@@ -44,14 +44,14 @@
       </tr>
     </thead>
     <tbody>
-    <% rocks.forEach(function(r) { %>
-      <% if (r.userId = user) { %>         
+    <% rocks.forEach(function(rock) { %>
+      <% if (user && user._id.equals(rock.userId)) { %>      
             <tr>
-              <td><%= r.title %></td>
-              <td><%= r.category %></td>
-              <td><%= r.priority %></td>
-              <td><%= r.difficulty %></td>
-              <td><%= r.userId %> <br> </td>
+              <td><%= rock.title %></td>
+              <td><%= rock.category %></td>
+              <td><%= rock.priority %></td>
+              <td><%= rock.difficulty %></td>
+              <td><%= rock.userId %> <br> </td>
             </tr>
             <tr><td></td><td></td><td></td><td></td><td></td></tr>
             

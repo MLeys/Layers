@@ -18,13 +18,14 @@ async function create(req, res) {
         .populate("userCreated")
         .populate("usersAssigned")
         .populate("rocks")
-        .exec();;
+        .exec();
         req.body.userId = req.user._id;
         req.body.userName = req.user.name;
         req.body.userAvatar = req.user.avatar;
         req.body.projectId = projectDoc._id;
 
-        console.log(req.body, '++++++++++++++++++++ req.body')
+        console.log(req.params, '++++++++++++++++++++ req.params')
+        console.log(projectDoc._id, '---------------------projectdoc._id')
         
         const newRock = await Rock.create(req.body);
 
@@ -37,7 +38,11 @@ async function create(req, res) {
                 if (err) return res.send('projectDoc SAve Error rocks controller create');
                 
                 projectDoc.rocks.push(rockDoc);
-                Project.findOne(projectDoc)
+                Project.findById(req.params.id)
+                    .populate("userCreated")
+                    .populate("usersAssigned")
+                    .populate("rocks")
+                    .exec();
 
 
                 
