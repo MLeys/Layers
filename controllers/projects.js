@@ -49,7 +49,11 @@ async function deleteProject(req, res) {
     try {
         console.log(req.params.id, ' ctrl.project.deleteProject <----- req.params.id')
 
-        const projectDoc = await Project.findByIdAndRemove(req.params.id);
+        const projectDoc = await Project.findByIdAndRemove(req.params.id)
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks")
+            .exec();
 
         res.redirect('/projects/all');
     } catch(err) {
@@ -67,10 +71,7 @@ async function show(req, res) {
             .populate("usersAssigned")
             .populate("rocks")
             .exec();
-        const rocksDocs = await Rock.find( {projectId: projectDoc})
-            .populate("userId")
-            .populate("projectId")
-            .exec();
+        const rocksDocs = await Rock.find( {projectId: projectDoc});
 
 
 
@@ -93,7 +94,11 @@ async function addAssigned(req, res) {
     try {        
         console.log(req.params.id, '<-- req.params.id===ctrl.project.addAssigned')
         const projectDocs = await Project.find({});
-        const projectDoc = await Project.findById(req.params.id);
+        const projectDoc = await Project.findById(req.params.id)
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks")
+            .exec();
         projectDoc.usersAssigned.push(req.user.id);
 
         projectDoc.save(function(err) {
@@ -125,7 +130,11 @@ async function create(req, res) {
         console.log('+++++++++++++++++++++++++++++++++++++++++++');
         console.log(req.body, ' <------- req.body')
 
-        const newProject = await Project.create(req.body);
+        const newProject = await Project.create(req.body)
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks")
+            .exec();
 
         newProject.userCreated = req.user;
         
@@ -136,7 +145,11 @@ async function create(req, res) {
             console.log('===========================================');
             res.redirect('/projects/all')
 
-        });
+        })            
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks")
+            .exec();
         // res.redirect('/projects/all')
 
         
