@@ -9,10 +9,8 @@ module.exports = {
     all,
     delete: deleteProject,
     unAssign,
-    
-    
     add: addAssigned,
-    
+    edit: editProject,
 };
 // console.log('===========================================');
 // console.log('===========================================');
@@ -21,6 +19,15 @@ module.exports = {
 // console.log(req.body, ' <------- req.body')
 // console.log('===========================================');
 // console.log('===========================================');
+
+async function editProject(req, res) {
+    try {
+        res.render('projects/edit');
+    } catch(err) {
+        console.log(err);
+        console.log('TERMINAL ERROR ---> ctrl.projects.editProject')
+    }
+}
 
 async function unAssign(req, res) {
     try {    

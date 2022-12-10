@@ -1,45 +1,30 @@
 <%- include('../partials/header') %>
 
-<h1><%= project.title %> </h1>
-
-
 <section id="show-page">
-  <div>
-    <small>Creator: 
-    <%= project.userCreated.name %> 
-      </small>
-  <div>Type: 
-    <%= project.priority %>
-  </div>
-<table>
-  <thead>
-    <tr>
-      <title> <%= project.title %> </title>
-    </tr>
-    <tr>
-      <th> </th>
-    </tr>
-  </thead>
-</table>
-  <div>Team:
-  <ul>
-    <% project.usersAssigned.forEach(user=> { %>
-      <li> 
-        <small><%= user.name %> </small>
-      </li>
-      <% }) %>
-  </ul>
-  </div>
-  <div>Rocks:
-  <ul>
-    <% rocks.forEach(r=> { %>
-      <li>
-        <small><%= r.title %> </small>
-      </li>
-      <% }) %>
-  </ul>
-  </div>
+  <%= project.title %>
+  <small>Creator: <%= project.userCreated.name %> </small>
+  <small>Type: <%= project.priority %></small>
+  <a href="/projects/edit">edit</a>
 
+    <div>Team:
+      <ul>
+        <% project.usersAssigned.forEach(user=> { %>
+          <li> 
+            <small><%= user.name %> </small>
+          </li>
+          <% }) %>
+      </ul>
+    </div>
+    <div>Rocks:
+      <ul>
+        <% rocks.forEach(r=> { %>
+          <li>
+            <small><%= r.title %> </small>
+          </li>
+          <% }) %>
+      </ul>
+    </div>
+  </div>
 </section>
 <section>
   <h3>Add Rock</h3>

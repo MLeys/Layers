@@ -9,13 +9,15 @@ const isLoggedIn = require('../config/auth')
 router.get('/', isLoggedIn, projectCtrl.index);
 router.get('/all', isLoggedIn, projectCtrl.all);
 router.get('/new', isLoggedIn, projectCtrl.new);
+router.get('/edit', isLoggedIn, projectCtrl.edit);
 router.get('/:id', isLoggedIn, projectCtrl.show);
+
 
 
 
 router.post('/', isLoggedIn, projectCtrl.create);
 
-// router.get('/:id/edit', isLoggedIn, projectCtrl.edit);
+
 // router.put('/:id', isLoggedIn, projectCtrl.update);
 router.delete('/:id', isLoggedIn, projectCtrl.delete);
 router.post('/:id/unAssign', isLoggedIn, projectCtrl.unAssign);
