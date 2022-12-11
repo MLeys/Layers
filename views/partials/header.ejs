@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>WIP tracker</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WIP tracker</title>
+    
+	<link rel="stylesheet" href="/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="/stylesheets/style.css">
     <!-- <link rel="stylesheet" href="/stylesheets/minimal-table.css"> -->
     <!-- CSS only -->
@@ -20,68 +23,56 @@
     crossorigin="anonymous"></script>
 
   </head>
-<body><main><header>
+<body>
+	<nav class="navbar navbar-expand-md">
+		<a class="navbar-brand" href="#">Logo</a>
+		<button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="main-navigation">
+			<ul class="navbar-nav nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+				<li class="nav-item">
+				  <a href="/projects" class="nav-link text-white">
+					
+					Home
+				  </a>
+				</li>
+				<% if (user) { %>
+					<li class="nav-item">
+						<a href="/projects/new" class="nav-link text-white">
+							<img src="/bootstrap/file-bar-graph.svg" alt="Bootstrap" width="32" height="32">
+							New
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/projects/all" class="nav-link text-white">
+							
+							All
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/logout" class="nav-link text-white">
+							
+							Log Out
+						</a>
+					</li>
 
-      <div class="px-3 py-2 text-bg-dark">
-        <div class="container"> 
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-            </a>
-  
-            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-              <li>
-                <a href="/projects" class="nav-link text-secondary">
-                  <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#gear"/></svg>
-                  Home
-                </a>
-              </li>
-              <% if (user) { %>
-                <%= user.name %> 
-                <li>
-                  <a href="/projects/new" class="nav-link text-white">
-                    <img src="/bootstrap/file-bar-graph.svg" alt="Bootstrap" width="32" height="32">
-                    New
-                  </a>
-                </li>
-                <li>
-                  <a href="/projects/all" class="nav-link text-white">
-                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
-                    All
-                  </a>
-                </li>
-                <li>
-                  <a href="/logout" class="nav-link text-white">
-                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                    Log Out
-                  </a>
-                </li>
+				<% } else { %>
+					<li class="nav-item">
+						<a href="/auth/google" class="login">
+							<button  class="btn btn-light text-dark me-2" ><img src="https://i.imgur.com/FHjYyi0.png"><br>&nbsp;Login</button>
+						  </a>
+					</li>
+				<% } %>
+			</ul>
+			<%= user.name %> 
+		</div>
+	</nav>
+	
+	
+	<main>
 
-                <% } else { %>
-                  <a href="/auth/google" class="login">
-                    <button  class="btn btn-light text-dark me-2" ><img src="https://i.imgur.com/FHjYyi0.png"><br>&nbsp;Login</button>
-                  </a>
-                  
-                  <!-- <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a> -->
-                  <% } %>
 
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- <div class="px-3 py-2 border-bottom mb-3">
-        <div class="container d-flex flex-wrap justify-content-center">
-          <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-          </form>
-  
-          <div class="text-end">
-            <button type="button" class="btn btn-light text-dark me-2">Login</button>
-            <button type="button" class="btn btn-primary">Sign-up</button>
-          </div>
-        </div>
-      </div> -->
-    </header>
   
   
       
