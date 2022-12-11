@@ -17,18 +17,17 @@ module.exports = {
 
 async function saveEdit(req, res) {
     try {
-
-        const projectDoc = await Project.findById(req.params.id).exec();
-            projectDoc.title = req.body.title,
-            projectDoc.type = req.body.type,
-            projectDoc.priority = req.body.priority,
-            projectDoc.userCreated = req.user._id
-
-        const project = await Project.findById(req.params.id)
+        console.log(req.params.id, ' <------- req.params.id in projects saveEdit')
+        const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
             .populate("rocks")
             .exec();
+        projectDoc.title = req.body.title,
+        projectDoc.type = req.body.type,
+        projectDoc.priority = req.body.priority,
+        projectDoc.userCreated = req.user._id
+
         projectDoc.save(function(err) { // CHECK IF THIS CAN BE 'project'
             res.redirect(`/projects/${projectDoc._id}`)
         })            
