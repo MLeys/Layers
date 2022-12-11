@@ -1,30 +1,29 @@
 var express = require('express');
-const { route } = require('.');
 const app = require('../server');
 var router = express.Router();
-const projectCtrl = require('../controllers/projects');
+const projectsCtrl = require('../controllers/projects');
 const isLoggedIn = require('../config/auth')
 
 
-router.get('/', isLoggedIn, projectCtrl.index);
-router.get('/all', isLoggedIn, projectCtrl.all);
-router.get('/new', isLoggedIn, projectCtrl.new);
-router.get('/:id/edit', isLoggedIn, projectCtrl.edit);
-router.get('/:id', isLoggedIn, projectCtrl.show);
+router.get('/', isLoggedIn, projectsCtrl.index);
+router.get('/all', isLoggedIn, projectsCtrl.all);
+router.get('/new', isLoggedIn, projectsCtrl.new);
+router.get('/:id/edit', isLoggedIn, projectsCtrl.edit);
+router.get('/:id', isLoggedIn, projectsCtrl.show);
 
 
 
-router.put('/:id', isLoggedIn, projectCtrl.saveEdit);
-router.post('/', isLoggedIn, projectCtrl.create);
+router.put('/:id', isLoggedIn, projectsCtrl.saveEdit);
+router.post('/', isLoggedIn, projectsCtrl.create);
 
 
-// router.put('/:id', isLoggedIn, projectCtrl.update);
-router.delete('/:id', isLoggedIn, projectCtrl.delete);
-router.post('/:id/unAssign', isLoggedIn, projectCtrl.unAssign);
+// router.put('/:id', isLoggedIn, projectsCtrl.update);
+router.delete('/:id', isLoggedIn, projectsCtrl.delete);
+router.post('/:id/unAssign', isLoggedIn, projectsCtrl.unAssign);
 
 
 
-router.post('/:id', isLoggedIn, projectCtrl.add); 
+router.post('/:id', isLoggedIn, projectsCtrl.add); 
 
 // addAssigned - add logged in user to prroject
 

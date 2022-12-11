@@ -4,8 +4,19 @@ const Rock = require("../models/rock");
 
 module.exports = {
   create,
+  delete: deleteRock,
 };
 
+async function deleteRock(req, res) {
+    try {
+        const rockDoc = await Rock.findByIdAndDelete(req.params.id);
+
+        res.redirect(`/projects/${rockDoc.projectId}`)
+    } catch(err) {
+        console.log(err);
+        res.send('TERMINAL ERROR ---> ctrl.projects.delete')
+    }
+}
 
 async function create(req, res) {
     try {    

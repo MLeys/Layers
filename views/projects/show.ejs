@@ -6,32 +6,53 @@
   <small>Type: <%= project.priority %></small>
   <a href="/projects/<%= project._id %>/edit">edit</a>
 
-    <div>Team:
-      <ul>
-        <% project.usersAssigned.forEach(user=> { %>
-          <li> 
-            <small><%= user.name %> </small>
-          </li>
-        
-          <% }) %>
-      </ul>
-    </div>
-    <div>Rocks:
-      <ul>
-        <% rocks.forEach(r=> { %>
-          <img alt="avatar" src="<%= r.userAvatar %>" referrerpolicy="no-referrer">
-          <small> <%= r.userName %>'s rock</small>
-          <li><%= r.projectId['title'] %> : <small><%= r.title %></small></li>
-          <li> <%= r.title %> </li>
-          <li><small> <%= r.description%> </small></li>
-          <li><small> <%= r.priority %> </small></li>
-          
-          
-          <% }) %>
-      </ul>
-    </div>
+  <div>Team:
+    <ul>
+      <% project.usersAssigned.forEach(user=> { %>
+        <li> 
+          <small><%= user.name %> </small>
+        </li>
+      
+        <% }) %>
+    </ul>
   </div>
+  <!-- END OF TEAM USERS ASSIGNED LIST -->
+  <div>Rocks:
+    <% rocks.forEach(r=> { %>
+      <table>
+        <thead>
+          <tr><th><img alt="avatar" src="<%= r.userAvatar %>" referrerpolicy="no-referrer"></th></tr>
+          <tr><th><small> <%= r.userName %>'s rock</small></th></tr>
+          <tr>
+            <th>Title: </th>
+            <th> Description</th>
+            <th> Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= r.title %> </td>
+            <td> <%= r.description %> </td>
+            <td> <%= r. priority %> </td>
+          </tr>
+        </tbody>
+        <% if (user && user._id.equals(r.userId)) { %>
+          <tfoot>
+            <tr>
+              <td>
+                <form action="/rocks/<%= r._id %>?_method=DELETE" method="POST">
+                  <button type="submit">DELETE</button>
+                </form>
+              </td>
+            </tr>
+          </tfoot>
+        <% } %> 
+    </table>
+    <% }) %>
+  </div>
+  <!-- END OF ROCKS LIST -->
 </section>
+<!-- END OF SHOW-PAGE SECTION -->
 <section>
   <h3>Add Rock</h3>
   <form id="add-review-form" method="POST"
