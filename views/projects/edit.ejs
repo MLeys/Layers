@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+
+<form id="new-form" method="POST"
+  action="/projects/<%= project._id %>">
+    <label>Title:</label>
+    <input type="text" name="title" value="<%= project.title %>">  
+    <label>Type:</label>
+    <input type="text" name="type" value="<%= project.type %>">
+    <label>Priority</label>
+    <input type="text" name="priority" value="<%= project.priority %>">
+
+    <input type="submit" value="Save">
+
+</form>
+
+
+<%- include('../partials/footer') %>

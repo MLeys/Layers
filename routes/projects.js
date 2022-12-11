@@ -9,12 +9,12 @@ const isLoggedIn = require('../config/auth')
 router.get('/', isLoggedIn, projectCtrl.index);
 router.get('/all', isLoggedIn, projectCtrl.all);
 router.get('/new', isLoggedIn, projectCtrl.new);
-router.get('/edit', isLoggedIn, projectCtrl.edit);
+router.get('/:id/edit', isLoggedIn, projectCtrl.edit);
 router.get('/:id', isLoggedIn, projectCtrl.show);
 
 
 
-
+router.post('/:id', isLoggedIn, projectCtrl.saveEdit);
 router.post('/', isLoggedIn, projectCtrl.create);
 
 

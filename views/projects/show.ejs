@@ -4,7 +4,7 @@
   <%= project.title %>
   <small>Creator: <%= project.userCreated.name %> </small>
   <small>Type: <%= project.priority %></small>
-  <a href="/projects/edit">edit</a>
+  <a href="/projects/<%= project._id %>/edit">edit</a>
 
     <div>Team:
       <ul>

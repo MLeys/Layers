@@ -10,10 +10,10 @@ module.exports = {
 async function create(req, res) {
     try {    
         const projectDoc = await Project.findById(req.params.id)
-        .populate("userCreated")
-        .populate("usersAssigned")
-        .populate("rocks")
-        .exec();
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks")
+            .exec();
         req.body.userId = req.user._id;
         req.body.userName = req.user.name;
         req.body.userAvatar = req.user.avatar;

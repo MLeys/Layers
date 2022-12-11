@@ -11,18 +11,62 @@ module.exports = {
     unAssign,
     add: addAssigned,
     edit: editProject,
+    saveEdit,
 };
-// console.log('===========================================');
-// console.log('===========================================');
-// console.log(req.params.id, ' <------- req.params.id')
-// console.log('+++++++++++++++++++++++++++++++++++++++++++');
-// console.log(req.body, ' <------- req.body')
-// console.log('===========================================');
-// console.log('===========================================');
+
+
+async function saveEdit(req, res) {
+    try {
+        console.log('===========================================');
+        console.log('===========================================');
+        console.log(req.params.id, ' <------- req.params.id')
+        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+        console.log(req.body, ' <------- req.body')
+        
+        const projectDoc = await Project.findById(req.params.id)
+            // .populate("userCreated")
+            // .populate("usersAssigned")
+            // .populate("rocks")
+            .exec();
+        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+        console.log(projectDoc, ' <------- projectDoc (before)')
+    
+        projectDoc.title = req.body.title,
+        projectDoc.type = req.body.type,
+        projectDoc.priority = req.body.priority,
+        projectDoc.userCreated = req.user._id;
+        console.log('+++++++++++++++++++++++++++++++++++++++++++');
+        console.log(projectDoc, ' <------- projectDoc (after)')
+
+        const project = await Project.findById(req.params.id)
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks")
+            .exec();
+        projectDoc.save(function(err) {
+            console.log('+++++++++++++++++++++++++++++++++++++++++++');
+            console.log(project, ' <------- project (saved populated)')
+            console.log('===========================================');
+            console.log('===========================================');
+
+            res.redirect(`/projects/${projectDoc._id}`)
+        })            
+        
+    } catch(err) {
+        console.log(err);
+        console.log('TERMINAL ERROR ---> ctrl.projects.create')
+    }
+}
 
 async function editProject(req, res) {
     try {
-        res.render('projects/edit');
+        const projectDoc = await Project.findById(req.params.id)
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks")
+            .exec();
+        
+        res.render('projects/edit', {project: projectDoc});
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.editProject')
@@ -33,13 +77,10 @@ async function unAssign(req, res) {
     try {    
         console.log(req.params.id, ' ctrl.project.unAssign <----- req.params.id')
         const projectDoc = await Project.findById(req.params.id)
-        .populate("userCreated")
-        .populate("usersAssigned")
-        .exec();
-        console.log(projectDoc, '------------------------------- projectDoc ')
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .exec();
         projectDoc.usersAssigned.pop(req.user._id);
-        console.log(projectDoc, '------------------------------- projectDoc2 ')
-
 
         projectDoc.save(function(err) {
             res.redirect(`/projects`);
@@ -79,12 +120,6 @@ async function show(req, res) {
             .populate("rocks")
             .exec();
         const rocksDocs = await Rock.find( {projectId: projectDoc});
-
-
-
-        // console.log('===========================================');
-        // console.log(rockDocs, ' <------- rocksDocs')
-        // console.log('+++++++++++++++++++++++++++++++++++++++++++');
 
         res.render('projects/show', { 
             project: projectDoc,
@@ -131,27 +166,12 @@ async function index(req, res) {
 
 async function create(req, res) {
     try {
-        console.log('===========================================');
-        console.log('===========================================');
-        console.log(req.params.id, ' <------- req.params.id')
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
-        console.log(req.body, ' <------- req.body')
         req.body.userCreated = req.user._id;
         const newProject = await Project.create(req.body);
 
-       
-        
         newProject.save(function(err) {
-            console.log('+++++++++++++++++++++++++++++++++++++++++++');
-            console.log(newProject, ' <------- newProject')
-            console.log('===========================================');
-            console.log('===========================================');
             res.redirect('/projects/all')
-
         })            
-        // res.redirect('/projects/all')
-
-        
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.create')
