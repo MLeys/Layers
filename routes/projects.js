@@ -14,7 +14,7 @@ router.get('/:id', isLoggedIn, projectCtrl.show);
 
 
 
-router.post('/:id', isLoggedIn, projectCtrl.saveEdit);
+router.put('/:id', isLoggedIn, projectCtrl.saveEdit);
 router.post('/', isLoggedIn, projectCtrl.create);
 
 
