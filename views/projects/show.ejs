@@ -16,6 +16,9 @@
         <% }) %>
     </ul>
   </div>
+ ==============================================================================  
+ ==============================================================================  
+
   <!-- END OF TEAM USERS ASSIGNED LIST -->
   <div>Rocks:
     <% rocks.forEach(r=> { %>
@@ -40,7 +43,7 @@
           <tfoot>
             <tr>
               <td>
-                <form action="/rocks/<%= r._id %>?_method=DELETE" method="POST">
+                <form action="/rocks/<%= r.id %>?_method=DELETE" method="POST">
                   <button type="submit">DELETE</button>
                 </form>
               </td>
@@ -52,6 +55,8 @@
   </div>
   <!-- END OF ROCKS LIST -->
 </section>
+==============================================================================  
+==============================================================================  
 <!-- END OF SHOW-PAGE SECTION -->
 <section>
   <h3>Add Rock</h3>
