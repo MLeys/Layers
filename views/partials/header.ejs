@@ -50,26 +50,29 @@
 							All
 						</a>
 					</li>
-					<li class="nav-item">
+				</ul>
+					<div class="nav-item"><%= user.name %> 
 						<a href="/logout" class="nav-link text-white">
-							
-							Log Out
+							Logout
 						</a>
-					</li>
+					</div>
 
 				<% } else { %>
-					<li class="nav-item">
+				</ul>
+					<li class="nav-item logout">
 						<a href="/auth/google" class="login">
 							<button  class="btn btn-light text-dark me-2" ><img src="https://i.imgur.com/FHjYyi0.png"><br>&nbsp;Login</button>
 						  </a>
 					</li>
+					
 				<% } %>
-			</ul>
-			<%= user.name %> 
+			
+			
 		</div>
 	</nav>
-	
-	
+	<header class="page-header header container-fluid">
+		<div class="overlay">
+
 	<main>
 
 
