@@ -11,47 +11,27 @@ module.exports = {
     unAssign,
     add: addAssigned,
     edit: editProject,
-    saveEdit,
+    update: saveEdit,
 };
 
 
 async function saveEdit(req, res) {
     try {
-        console.log('===========================================');
-        console.log('===========================================');
-        console.log(req.params.id, ' <------- req.params.id')
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
-        console.log(req.body, ' <------- req.body')
-        
-        const projectDoc = await Project.findById(req.params.id)
-            // .populate("userCreated")
-            // .populate("usersAssigned")
-            // .populate("rocks")
-            .exec();
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
-        console.log(projectDoc, ' <------- projectDoc (before)')
-    
-        projectDoc.title = req.body.title,
-        projectDoc.type = req.body.type,
-        projectDoc.priority = req.body.priority,
-        projectDoc.userCreated = req.user._id;
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
-        console.log(projectDoc, ' <------- projectDoc (after)')
+
+        const projectDoc = await Project.findById(req.params.id).exec();
+            projectDoc.title = req.body.title,
+            projectDoc.type = req.body.type,
+            projectDoc.priority = req.body.priority,
+            projectDoc.userCreated = req.user._id
 
         const project = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
             .populate("rocks")
             .exec();
-        projectDoc.save(function(err) {
-            console.log('+++++++++++++++++++++++++++++++++++++++++++');
-            console.log(project, ' <------- project (saved populated)')
-            console.log('===========================================');
-            console.log('===========================================');
-
+        projectDoc.save(function(err) { // CHECK IF THIS CAN BE 'project'
             res.redirect(`/projects/${projectDoc._id}`)
         })            
-        
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.create')
@@ -79,6 +59,7 @@ async function unAssign(req, res) {
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
+            .populate("rocks")
             .exec();
         projectDoc.usersAssigned.pop(req.user._id);
 
@@ -118,7 +99,7 @@ async function show(req, res) {
             .populate("userCreated")
             .populate("usersAssigned")
             .populate("rocks")
-            .exec();
+            ;
         const rocksDocs = await Rock.find( {projectId: projectDoc});
 
         res.render('projects/show', { 

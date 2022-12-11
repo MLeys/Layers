@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+
+<section>
+    <h3>Edit Rock</h3>
+    <form id="add-review-form" method="POST"
+    action="/rocks/<%=rock._id%>?_method=PUT">
+      <label>Title:</label>
+        <input type="text" name="title" value="<%= rock.title %>" >
+        <br>
+      <label>Description:</label>
+        <textarea name="description" value="<%= rock.description %>" ></textarea>
+        <br>
+      <label>Category:</label>
+        <select name="category" id="" value="<%= rock.category %>" >
+          <option value="Personal">Personal</option>
+          <option value="Project">Project</option>
+          <option value="Private">Private</option>
+        </select>
+        <br>
+      <label>Priority:</label>
+        <select name="piority" id="" value="<%= rock.priority %>" >
+          <option value="High">High</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Low">Low</option>
+        </select>
+        <br>
+      <label>Difficulty</label>
+        <input type="Number" name="difficulty" value="<%= rock.difficulty %>" >
+        <br>
+      <label>AsignUserId-:</label>
+      <!-- FOR EACH =MAP each option -->
+        <select name="userName">
+          <option value="<%= rock.userName %>" ></option>
+        </select>
+        <br>
+      <label>
+        <input type="submit" value="Save">
+      </label>
+    
+  </form>
+  </section>
+
+
+<%- include('../partials/footer') %>
