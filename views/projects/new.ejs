@@ -1,4 +1,39 @@
 <%- include('../partials/header') %>
+<main class ="main-newProject">
+  <div class="card newProject">
+    <form id="project-form" action="/projects" method="POST"></form>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder="Title!">
+        <label for="floatingInput">Title</label>
+      </div>
+      <div class="form-floating">
+        <textarea class="form-control" placeholder="Default project description" id="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Description</label>
+      </div>
+
+
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+
+    </form> <!-- END FORM(project-form)-->
+  </div> <!-- END CARD (newProject) -->
+</main> <!-- END MAIN-->
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input for="floatingInput" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+
+<div class="input-group mb-3">
+  <label class="input-group-text" for="inputGroupSelect01">Options</label>
+  <select class="form-select" id="inputGroupSelect01">
+    <option selected>Choose...</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+</div>
 
 <form id="new-form" action="/projects" method="POST">
     <label>Title:</label>

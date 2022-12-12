@@ -11,13 +11,13 @@ const projectSchema = new Schema({
     priority: String, 
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
     rocks: [{type: Schema.Types.ObjectId, ref: 'Rock'}],
-    // progress: {
-    //     total: Number,
-    //     rocks: {total: Number, 
-    //         complete: Number,
-    //         completion: Number} 
-    //     },
-    // complete: Boolean,
+    progress: {
+        total: Number,
+        rocks: {total: Number, 
+            complete: Number,
+            completion: Number} 
+        },
+    complete: Boolean,
     
   }, {
     timestamps: true

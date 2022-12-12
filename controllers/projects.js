@@ -132,18 +132,18 @@ async function addAssigned(req, res) {
     }
 }
 
-async function index(req, res) {
-    try {
-        const projectDocs = await Project.find({})
+// async function index(req, res) {
+//     try {
+//         const projectDocs = await Project.find({})
 
 
-        res.render('projects/projects', { projects: projectDocs });
+//         res.render('projects/projects', { projects: projectDocs });
        
-    } catch(err) {
-        console.log(err)
-        console.log('TERMINAL ERROR ---->ctrl.project.index')
-    }
-}
+//     } catch(err) {
+//         console.log(err)
+//         console.log('TERMINAL ERROR ---->ctrl.project.index')
+//     }
+// }
 
 async function create(req, res) {
     try {

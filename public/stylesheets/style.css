@@ -32,7 +32,10 @@ body {
   margin: 0;
   background: #f2f6e9;
 }
-
+main {
+  padding: 2px;
+  margin: 2px;
+}
 
 .navbar {
   background:#6ab446;
