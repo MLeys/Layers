@@ -7,10 +7,18 @@ const projectSchema = new Schema({
     description: String, // NEW ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     userCreated: {type: Schema.Types.ObjectId, ref: 'User'},  
     userCreatedName: String, // NEW ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    type: String,  
-    priority: String, 
-    usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
-    rocks: [{type: Schema.Types.ObjectId, ref: 'Rock'}],
+    type: {
+      type: String,
+      default: 'Team',
+      enum:[ 'Company', 'Team', 'Personal', 'Other']
+    },  
+    priority: {
+      type: String,
+      default: 'Normal',
+      enum:[ 'Urgent', 'High', 'Normal', 'Low']
+    },  
+    usersAssigned: [{type: Schema.Types.ObjectId, ref: 'Users'}],
+    rocks: [{type: Schema.Types.ObjectId, ref: 'Rocks'}],
     progress: {
         total: Number,
         rocks: {total: Number, 
