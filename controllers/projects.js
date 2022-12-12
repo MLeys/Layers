@@ -134,7 +134,8 @@ async function addAssigned(req, res) {
 
 async function index(req, res) {
     try {
-        const projectDocs = await Project.find({});
+        const projectDocs = await Project.find({})
+
 
         res.render('projects/projects', { projects: projectDocs });
        

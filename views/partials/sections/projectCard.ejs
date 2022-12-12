@@ -1,0 +1,20 @@
+<% projects.forEach(function(project) { %>
+  <% if (project.usersAssigned.includes(user._id)) { %>         
+    <div class="card">
+      <h5 class="card-header"><%= project.priority %> </h5>
+      <div class="card-body">
+        <h5 class="card-title"><%= project.title %> </h5>
+        <p class="card-text">
+          <%= project.description %> 
+          This is an example project description for testing since
+          old projects did not have the key
+        </p>
+        <a href="/projects/<%= project._id %> " class="btn btn-primary">Details</a>
+      </div>
+      <div class="card-footer text-muted">
+        <%  %> 
+        Created by: <%= project.userCreated._id %>(change to 'userCreatedName') on <%= project.createdAt.toLocaleDateString() %> 
+      </div>
+    </div>
+  <% }  %>
+<% }); %>

@@ -4,9 +4,11 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
     title: String,
-    userCreated: {type: Schema.Types.ObjectId, ref: 'User'},  // Assign MAnage
-    type: String,  // team/ individual ect
-    priority: String, // high/ low/ intermediate
+    description: String, // NEW ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    userCreated: {type: Schema.Types.ObjectId, ref: 'User'},  
+    userCreatedName: String, // NEW ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    type: String,  
+    priority: String, 
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User'}],
     rocks: [{type: Schema.Types.ObjectId, ref: 'Rock'}],
     // progress: {
