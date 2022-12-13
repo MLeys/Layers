@@ -6,7 +6,7 @@ const rockSchema = new Schema({
     title: String,
     description: String,
     category: String,
-    userId: {type: Schema.Types.ObjectId, ref: 'User'},
+    userId: {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true},
     userName: String,
     userAvatar: String,
     
@@ -15,10 +15,10 @@ const rockSchema = new Schema({
     difficulty: {type: Number, max: 10, min:1},
     progress: Number,
     complete: Boolean,
-    projectId: {type: Schema.Types.ObjectId, ref: 'Project'},
+    projectId: {type: Schema.Types.ObjectId, ref: 'Project', autopopulate: true},
     
   }, {
     timestamps: true
   });
-
+  
 module.exports = mongoose.model('Rock', rockSchema);

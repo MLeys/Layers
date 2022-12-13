@@ -1,22 +1,57 @@
 <%- include('../partials/header') %>
 <main class ="main-newProject">
   <div class="card newProject">
-    <form id="project-form" action="/projects" method="POST"></form>
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Title!">
-        <label for="floatingInput">Title</label>
-      </div>
+    <form id="project-form" action="/projects" method="POST">
+      <input type="hidden" name="userCreated" value="<% user %> ">
+      <div class="row g-3">
+        <div class="col-md">
+          <div class="form-floating mb-3">
+            <input name="title" type="text" class="form-control" id="floatingInput" placeholder="Title!">
+            <label for="floatingInput">Title</label>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="form-floating">
+            <select name="type" class="form-select" id="floatingSelectGrid">
+              <option selected> </option>
+              <%- projectTypes.map(s=>
+              `<option value="${s}">${s}</option>`
+              ).join('') %>
+            </select>
+            <label for="floatingSelectGrid">Select Type</label>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="form-floating">
+            <select name="priority" class="form-select" id="floatingSelectGrid">
+              <option selected> </option>
+              <%- projectPriorities.map(s=>
+              `<option value="${s}">${s}</option>`
+              ).join('') %>
+            </select>
+            <label for="floatingSelectGrid">Set Priority</label>
+          </div>
+        </div>
+      </div><!-- END ROW-->
       <div class="form-floating">
-        <textarea class="form-control" placeholder="Default project description" id="floatingTextarea2" style="height: 100px"></textarea>
+        <textarea name="description" class="form-control" placeholder="Default project description" id="floatingTextarea2" style="height: 100px"></textarea>
         <label for="floatingTextarea2">Description</label>
       </div>
 
-
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <div class="form-floating">
+        <select name="userCreated" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+          
+          <%- userDocs.map(userDoc=>
+          `<option value="${userDoc._id}">${userDoc.name} - ${userDoc.email}</option>`
+          ).join('') %>
+        </select>
+        <label for="floatingSelect">User Created</label>
       </div>
 
+
+      
+
+      <input type="submit" value="Add Project">
     </form> <!-- END FORM(project-form)-->
   </div> <!-- END CARD (newProject) -->
 </main> <!-- END MAIN-->
@@ -24,6 +59,7 @@
   <label for="exampleFormControlInput1" class="form-label">Email address</label>
   <input for="floatingInput" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
 </div>
+
 
 <div class="input-group mb-3">
   <label class="input-group-text" for="inputGroupSelect01">Options</label>

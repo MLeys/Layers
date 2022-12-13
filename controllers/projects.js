@@ -1,5 +1,7 @@
 const Project = require("../models/project");
 const Rock = require("../models/rock");
+const User = require("../models/user");
+const rocks = require("./rocks");
 
 module.exports = {
     index,
@@ -161,8 +163,29 @@ async function create(req, res) {
 
 async function newProject(req, res) {
     try {
+        const projectTypes = [ 'Company', 'Team', 'Personal', 'Other'];
+        const projectPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
 
-        res.render('projects/new');
+        const rocksDocs = await Rock.find()
+            .populate("userId")
+            .populate("projectId");
+            
+        const  projectsDocs = await Project.find()
+            .populate('usersAssigned')
+            .populate('userCreated')
+            .populate('rocks');
+      
+      console.log(projectsDocs, 'project docs <---------');
+  
+        const userDocs = await User.find({});
+        res.render('projects/new', { 
+            projects: projectsDocs,
+            rocks: rocksDocs,
+            userDocs,
+            projectPriorities,
+            projectTypes
+        })
+        
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.new')
@@ -171,6 +194,7 @@ async function newProject(req, res) {
 
 async function index(req, res) {
     try {
+        
         const projectDocs = await Project.find({});
         const rockDocs = await Rock.find({});
         // const userProjectsDocs = projectsDocs.usersAssigned.includes(user);
