@@ -117,12 +117,14 @@ async function show(req, res) {
 async function addAssigned(req, res) {
     try {        
         console.log(req.params.id, '<-- req.params.id===ctrl.project.addAssigned')
-        const projectDocs = await Project.find({});
+        const projectDocs = await Project.find()
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate("rocks");
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
-            .populate("rocks")
-            .exec();
+            .populate("rocks");
         projectDoc.usersAssigned.push(req.user.id);
 
         projectDoc.save(function(err) {
@@ -150,6 +152,9 @@ async function addAssigned(req, res) {
 async function create(req, res) {
     try {
         req.body.userCreated = req.user._id;
+        req.body.userCreatedName = req.user.name;
+        req.body.userCreatedAvatar = req.user.avatar;
+        console.log(req.body, ' <-------- REQ BODY create projects ctrl')
         const newProject = await Project.create(req.body);
 
         newProject.save(function(err) {

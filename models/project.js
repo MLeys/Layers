@@ -7,6 +7,8 @@ const projectSchema = new Schema({
     description: String, // NEW ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     userCreated: {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true},  
     userCreatedName: String, // NEW ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    userCreatedAvatar: String,
+    manager: {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}, 
     type: {
       type: String,
       default: 'Team',
