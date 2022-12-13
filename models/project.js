@@ -8,7 +8,9 @@ const projectSchema = new Schema({
     userCreated: {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true},  
     userCreatedName: String, // NEW ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     userCreatedAvatar: String,
-    manager: {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}, 
+    projectManager: {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}, 
+    projectManagerName: String,
+    projectManagerAvatar: String,
     type: {
       type: String,
       default: 'Team',
@@ -20,6 +22,9 @@ const projectSchema = new Schema({
       enum:[ 'Urgent', 'High', 'Normal', 'Low']
     },  
     usersAssigned: [{type: Schema.Types.ObjectId, ref: 'User', autopopulate: true}],
+    usersAssignedName: String,
+    usersAssignedAvatar: String,
+    
     rocks: [{type: Schema.Types.ObjectId, ref: 'Rock', autopopulate: true}],
     // progress: {
     //     total: Number,

@@ -154,10 +154,21 @@ async function create(req, res) {
         req.body.userCreated = req.user._id;
         req.body.userCreatedName = req.user.name;
         req.body.userCreatedAvatar = req.user.avatar;
+        req.body.projectManager = req.body.manager;
+        req.body.projectManagerName = 
+        req.body.projectManagerAvatar = req.body.manager.avatar;
         console.log(req.body, ' <-------- REQ BODY create projects ctrl')
+        console.log(req.body.manager, ' <-------- REQ BODY PARAMS create projects ctrl')
         const newProject = await Project.create(req.body);
-
-        newProject.save(function(err) {
+        const project = await Project.findById(newProject._id)
+            .populate('usersAssigned')
+            .populate('userCreated')
+            .populate('projectManager')
+            .populate('rocks');
+        
+        console.log(project.projectManager.name, '<---------projmanager name');
+        project.save(function(err) {
+            console.log(project, '<-------- PROJ SAVED0');
             res.redirect('/projects/all')
         })            
     } catch(err) {
@@ -178,10 +189,9 @@ async function newProject(req, res) {
         const  projectsDocs = await Project.find()
             .populate('usersAssigned')
             .populate('userCreated')
-            .populate('rocks');
-      
-      console.log(projectsDocs, 'project docs <---------');
-  
+            .populate('rocks')
+            .populate('projectManager');  
+        
         const userDocs = await User.find({});
         res.render('projects/new', { 
             projects: projectsDocs,
