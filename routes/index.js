@@ -6,9 +6,11 @@ const passport = require('passport');
 
 // /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
-});
+  res.redirect('/index');
 
+
+});
+//note
 
 // define the Oauth route, 
 // this is the route our user will make a request to,
