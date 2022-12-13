@@ -84,6 +84,7 @@ async function deleteProject(req, res) {
             .populate("usersAssigned")
             .populate("rocks")
             .exec();
+            console.log('test')
 
         res.redirect('/projects/all');
     } catch(err) {
