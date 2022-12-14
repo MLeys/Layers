@@ -79,7 +79,7 @@ async function editProject(req, res) {
 
 async function unAssign(req, res) {
     try {    
-        console.log(req.params.id, ' ctrl.project.unAssign <----- req.params.id')
+
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
@@ -102,8 +102,6 @@ async function unAssign(req, res) {
 
 async function deleteProject(req, res) {
     try {
-        console.log(req.params.id, ' ctrl.project.deleteProject <----- req.params.id')
-
         const projectDoc = await Project.findByIdAndRemove(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
@@ -123,8 +121,8 @@ async function show(req, res) {
     try {
         const rockCategories = [ 'Team', 'Project', 'Personal', 'Base', 'Other', 'Activity'];
         const rockPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
-        const rangeTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        console.log(req.params.id, '<-- req.params.id===ctrl.project.show')
+        const rangeTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
@@ -137,7 +135,6 @@ async function show(req, res) {
         .populate('projectId');
         const userDocs = User.find({});
 
-        // console.log(rocksDocs, ' ======== ROCKS DOCS')
         res.render('projects/show', { 
             project: projectDoc,
             rocks: rocksDocs,
@@ -178,18 +175,6 @@ async function addAssigned(req, res) {
     }
 }
 
-// async function index(req, res) {
-//     try {
-//         const projectDocs = await Project.find({})
-
-
-//         res.render('projects/projects', { projects: projectDocs });
-       
-//     } catch(err) {
-//         console.log(err)
-//         console.log('TERMINAL ERROR ---->ctrl.project.index')
-//     }
-// }
 
 async function create(req, res) {
     try {
@@ -199,16 +184,14 @@ async function create(req, res) {
         req.body.projectManager = req.body.manager;
         req.body.projectManagerName = req.body.manager.name;
         req.body.projectManagerAvatar = req.body.manager.avatar;
-        console.log(req.body, ' <-------- REQ BODY create projects ctrl')
-        console.log(req.body.manager, ' <-------- REQ BODY PARAMS create projects ctrl')
+
         const newProject = await Project.create(req.body);
         const project = await Project.findById(newProject._id)
             .populate('usersAssigned')
             .populate('userCreated')
             .populate('projectManager')
             .populate('rocks');
-        
-        console.log(project.projectManager.name, '<---------projmanager name');
+
         project.save(function(err) {
             console.log(project, '<-------- PROJ SAVED0');
             res.redirect('/projects/all')
@@ -251,12 +234,8 @@ async function newProject(req, res) {
 
 async function index(req, res) {
     try {
-        
         const projectDocs = await Project.find({});
         const rockDocs = await Rock.find({});
-        // const userProjectsDocs = projectsDocs.usersAssigned.includes(user);
-        // console.log(projectsDocs.usersAssigned, '<======== user projects only ^^^^^^^')
-        // console.log(req.user)
 
         res.render('projects/index', { 
             projects: projectDocs,
@@ -270,7 +249,6 @@ async function index(req, res) {
 
 async function all(req, res) {
     try {
-        
         const projectTypes = [ 'Company', 'Team', 'Personal', 'Other'];
         const projectPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
 

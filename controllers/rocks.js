@@ -34,15 +34,7 @@ async function saveEdit(req, res) {
         rockDoc.userNote = req.body.userNote;
         // rockDoc.userName = req.body.assignUser.name;
         // rockDoc.userAvatar = req.body.assignUser.avatar;
-        
-
-
-        console.log('+++++++++++++++++++++++++++++++++++++++++++');
-        console.log(rockDoc, ' <------- rockDoc ()')
-        // const projectDoc = await Project.findById(rockDoc.projectId.id).exec();
-
-        
-        
+ 
         rockDoc.save(function(err) {
             const rock = Rock.findById(rockDoc._id)
                 .populate('userId')
@@ -52,9 +44,6 @@ async function saveEdit(req, res) {
                 .populate("usersAssigned")
                 .populate("projectManager")
                 .populate("rocks");
-
-            console.log(rockDoc, '<-- rockDoc SAVING ')
-            
 
             res.redirect(`/projects/${rockDoc.projectId._id}`)
         })            
@@ -71,7 +60,7 @@ async function editRock(req, res) {
         const rockCategories = [ 'Team', 'Project', 'Personal', 'Base', 'Other', 'Activity'];
         const rockPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
         const rangeTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        console.log('===========  EDIT ROCK start===============');
+
         console.log(req.body, ' REQ BODY')
         
         const userDocs = await User.find({});
@@ -80,7 +69,6 @@ async function editRock(req, res) {
             .populate("projectId");
             
 
-            console.log('===========  EDIT ROCK stop===============');
         res.render('rocks/edit', {
             rock: rockDoc,
             rockCategories,
@@ -96,7 +84,6 @@ async function editRock(req, res) {
 
 async function deleteRock(req, res) {
     try {
-        console.log(req.params.id, 'deleteRock +++++++ req.params.id')
         const rockDoc = await Rock.findByIdAndRemove(req.params.id);
 
         res.redirect(`/projects/${rockDoc.projectId}`)
@@ -107,27 +94,21 @@ async function deleteRock(req, res) {
 }
 
 async function create(req, res) {
-    try {    
-        console.log(req.body, ' <-------- REQ BODY create ROCKs ctrl')
-        
+    try {
         const projectDoc = await Project.findById(req.params.id);
 
         req.body.userId = req.user._id;
         req.body.userName = req.user.name;
         req.body.userAvatar = req.user.avatar;
-        
         req.body.projectId = projectDoc._id;
         req.body.complete = false;
         req.body.progress = 0.
-        console.log(req.body, ' <-------- REQ BODY create ROCKs ctrl AFTER adding reqs')
+
         const newRock = await Rock.create(req.body);
-        console.log(newRock, ' NEW ROCK -----------')
         
         const rockDoc = await Rock.findById(newRock._id)
             .populate("userId")
             .populate("projectId");
-
-        console.log(rockDoc, 'ROCK DOC =================')
 
             projectDoc.rocks.push(rockDoc);
             Project.findById(req.params.id)
