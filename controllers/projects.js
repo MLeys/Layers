@@ -42,14 +42,9 @@ async function saveEdit(req, res) {
 
         projectDoc.save(function(err) { // CHECK IF THIS CAN BE 'project'
                 
-            const project = Project.findById(projectDoc._id)
-            .populate("userCreated")
-            .populate("usersAssigned")
-            .populate('projectManager')
-            .populate("rocks")
-            ;
+
             console.log(projectDoc, ' PROJECT DOC ============== SAVED')
-            console.log(project, ' PROJEC ============== SAVED')
+
             res.redirect(`/projects/${projectDoc._id}`)
         })            
     } catch(err) {
@@ -89,8 +84,9 @@ async function unAssign(req, res) {
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
-            .populate("rocks")
-            .exec();
+            .populate("projectManager")
+            .populate("rocks");
+            
         projectDoc.usersAssigned.pop(req.user._id);
 
         projectDoc.save(function(err) {

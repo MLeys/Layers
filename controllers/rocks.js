@@ -11,15 +11,15 @@ module.exports = {
 
 async function saveEdit(req, res) {
     try {
-        
+
         // console.log('===========================================');
         // console.log('===========================================');
         console.log(req.params.id, ' <------- req.params.id')
         // console.log('+++++++++++++++++++++++++++++++++++++++++++');
         console.log(req.body, ' <------- req.body')
         console.log('===========  SAVE EDIT ===============');
-        const projectDoc = await Project.findById(req.params.id);
-        const rockDoc = await Rock.findByIdAndUpdate(req.params.id)
+
+        const rockDoc = await Rock.findById(req.params.id)
         .populate('userId')
         .populate('projectId');    
         console.log(rockDoc, ' <------- rockDoc (BEFORE)')      
@@ -46,12 +46,19 @@ async function saveEdit(req, res) {
         rockDoc.save(function(err) {
             const rock = Rock.findById(rockDoc._id)
                 .populate('userId')
-                .populate('projectId')
+                .populate('projectId');
+            const projectDoc = Project.findByIdAndUpdate(rockDoc.projectId._id)
+                .populate("userCreated")
+                .populate("usersAssigned")
+                .populate("projectManager")
+                .populate("rocks");
+
             console.log(rockDoc, '<-- rockDoc SAVING ')
+            
 
             res.redirect(`/projects/${rockDoc.projectId._id}`)
         })            
-        
+    
         
     } catch(err) {
         console.log(err);
@@ -90,7 +97,7 @@ async function editRock(req, res) {
 async function deleteRock(req, res) {
     try {
         console.log(req.params.id, 'deleteRock +++++++ req.params.id')
-        const rockDoc = await Rock.findByIdAndDelete(req.params.id);
+        const rockDoc = await Rock.findByIdAndRemove(req.params.id);
 
         res.redirect(`/projects/${rockDoc.projectId}`)
     } catch(err) {

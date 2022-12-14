@@ -33,7 +33,7 @@
             </ul>
           </li>
         </ul>
-<br>
+
         <div class="row row-cols-3 row-cols-md-3 g-4">
           <% rocks.forEach(function(rock) { %>
             <% if (user && user._id.equals(rock.userId) && project._id.equals(rock.projectId)) { %>    
@@ -65,40 +65,41 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
                 <!-- START ROCKS CARD -->
           
-          <% project.rocks.forEach(function(rock) { %> 
+          <% project.rocks.forEach(function(rockObj) { %> 
             <div class="col">
               <div class="card h-100" >
                 <div class="card-body">
-                  <h5 class="card-title"><%= rock.title %> </h5>
-                  <p class="card-text"> <%= rock.description %> </p>
+                  <h5 class="card-title"><%= rockObj.title %> </h5>
+                  <p class="card-text"> <%= rockObj.description %> </p>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Category: <%= rock.category %> </li>
-                  <li class="list-group-item">Priority: <%= rock.priority %> </li>
-                  <li class="list-group-item">Diffuculty: <%= rock.difficulty %> </li>
-                  <li class="list-group-item">Complete: <%= rock.complete %> </li>
+                  <li class="list-group-item">Category: <%= rockObj.category %> </li>
+                  <li class="list-group-item">Priority: <%= rockObj.priority %> </li>
+                  <li class="list-group-item">Diffuculty: <%= rockObj.difficulty %> </li>
+                  <li class="list-group-item">Complete: <%= rockObj.complete %> </li>
                   <li class="list-group-item">
                     <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="<%= rock.progrss %> " aria-valuemin="0" aria-valuemax="0"><%= rock.progress %> </div>
+                      <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="<%= rockObj.progrss %> " aria-valuemin="0" aria-valuemax="0"><%= rockObj.progress %> </div>
                     </div>
-                    Progress: <%= rock.progress %> </li>
+                    Progress: <%= rockObj.progress %> </li>
                   <li class="list-group-item">
                   <li class="list-group-item">
-                    <p class="list-text">Note: <%= rock.userNote %> </p>
+                    <p class="list-text">Note: <%= rockObj.userNote %> </p>
                   </li>
                 </ul>
-
                 <div class="card-body">
-                  <% if (rock.userId.equals(user._id)) {%> 
+                  <% if (rockObj.userId.equals(user._id)) {%> 
                     <p class="card-text">Assigned
-                      <a href="/rocks/<%= rock.id %>/edit" class="card-link">edit</a>
+                      <a href="/rocks/<%= rockObj.id %>/edit" class="card-link">edit</a>
                     </p>
                   <% } else {%>
                     <p class="card-text">Assigned to <%= rock.userName %> </p>
                     <% } %> 
+                
+
     
                       
-                </div>
+                
               </div>
             </div>
           <!-- END OF ROCKS CARD -->
@@ -106,7 +107,7 @@
         </div> <!-- END row class at start of card-->
       </div>
       <!--  END OF CARDbody -->
-<br>
+
       <div class="card newProject">
         <form id="form-add-rock" method="POST"
         action="/projects/<%= project._id%>/rocks">
