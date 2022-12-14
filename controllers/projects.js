@@ -274,10 +274,31 @@ async function index(req, res) {
 
 async function all(req, res) {
     try {
-        const projectDocs = await Project.find({});
+        
+        const projectTypes = [ 'Company', 'Team', 'Personal', 'Other'];
+        const projectPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
+
+        const rocksDocs = await Rock.find()
+            .populate("userId")
+            .populate("projectId");
+            
+        const  projectsDocs = await Project.find()
+            .populate('usersAssigned')
+            .populate('userCreated')
+            .populate('rocks')
+            .populate('projectManager');  
+        
+        const userDocs = await User.find({});
+        res.render('projects/projects', { 
+            projects: projectsDocs,
+            rocks: rocksDocs,
+            userDocs,
+            projectPriorities,
+            projectTypes
+        })
 
 
-        res.render('projects/projects', { projects: projectDocs});
+        
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.all')

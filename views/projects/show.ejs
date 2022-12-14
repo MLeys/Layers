@@ -33,7 +33,7 @@
             </ul>
           </li>
         </ul>
-      ==============================================================
+<br>
         <div class="row row-cols-3 row-cols-md-3 g-4">
           <% rocks.forEach(function(rock) { %>
             <% if (user && user._id.equals(rock.userId) && project._id.equals(rock.projectId)) { %>    
@@ -106,7 +106,7 @@
         </div> <!-- END row class at start of card-->
       </div>
       <!--  END OF CARDbody -->
-=========================================================================================
+<br>
       <div class="card newProject">
         <form id="form-add-rock" method="POST"
         action="/projects/<%= project._id%>/rocks">
@@ -197,55 +197,11 @@
 
 
 
-======================================================================================
- 
- ==============================================================================  
- ==============================================================================  
+
 
   <!-- END OF TEAM USERS ASSIGNED LIST -->
-  
-==============================================================================  
-==============================================================================  
-<!-- END OF SHOW-PAGE SECTION -->
-<section>
-  <h3>Add Rock</h3>
-  <form id="add-review-form" method="POST"
-  action="/projects/<%= project._id %>/rocks">
-    <label>Title:</label>
-      <input type="text" name="title">
-      <br>
-    <label>Description:</label>
-      <textarea name="description"></textarea>
-      <br>
-    <label>Category:</label>
-      <select name="category" id="">
-        <option value="Personal">Personal</option>
-        <option value="Project">Project</option>
-        <option value="Private">Private</option>
-      </select>
-      <br>
-    <label>Priority:</label>
-      <select name="piority" id="">
-        <option value="name">High</option>
-        <option value="Moderate">Moderate</option>
-        <option value="Low">Low</option>
-        <option> test</option>
-      </select>
-      <br>
-    <label>Difficulty</label>
-      <input type="Number" name="difficulty">
-  <br>
-    <label>AsignUser-dropdown of allusers:</label>
-      <select name="userId">
-        <option></option>
-      </select>
-    
-      <br>
-    <input type="submit" value="Add">
 
-  
-</form>
-</section>
+<!-- END OF SHOW-PAGE SECTION -->
 
 
 <%- include('../partials/footer') %>
