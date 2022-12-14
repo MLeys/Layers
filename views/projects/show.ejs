@@ -28,22 +28,7 @@
             <ul>
               <% project.rocks.forEach(function(rock) { %> 
                 <li class="list-group-item"> <%= rock.title %> </li>
-                <% if (!project.usersAssigned.includes(user._id)) {%> 
-                  <li class="list-group-item">
-                    <form action="/projects/<%= project._id %>?_method=DELETE" method="POST">
-                      <input type="submit">Delete
-                    </form>
-                  </li>
-                  
-                <% } else { %> 
-                  <li class="list-group-item">
-                    <form id = "add-review-form" action="/projects/<%= project.id %>"
-                        method="POST">
-                        <button type="submit">Assign</button>
-                    </form>  
-                  </li>
-                  
-                <% } %> 
+
               <% }) %> 
             </ul>
           </li>
@@ -77,29 +62,39 @@
           <!--END OF ROCKS for each -->
           </div>
         </div> 
-
+        <div class="row row-cols-1 row-cols-md-3 g-4">
                 <!-- START ROCKS CARD -->
-        <div class="card" style="width: 18rem;">
+          
           <% project.rocks.forEach(function(rock) { %> 
-          <div class="card-body">
-            <h5 class="card-title"><%= rock.title %> </h5>
-            <p class="card-text"> <%= rock.description %> </p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Category: <%= rock.category %> </li>
-            <li class="list-group-item">Priority: <%= rock.priority %> </li>
-            <li class="list-group-item">Complete: <%= rock.complete %> </li>
-            <li class="list-group-item">Progress: <%= rock.progress %> </li>
-          </ul>
-          <div class="card-body">
-            <a href="/rocks/<%= rock.id %>/edit" class="card-link">edit</a>
-            
-          </div>
-
+            <div class="col">
+              <div class="card h-100" >
+                <div class="card-body">
+                  <h5 class="card-title"><%= rock.title %> </h5>
+                  <p class="card-text"> <%= rock.description %> </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Category: <%= rock.category %> </li>
+                  <li class="list-group-item">Priority: <%= rock.priority %> </li>
+                  <li class="list-group-item">Diffuculty: <%= rock.difficulty %> </li>
+                  <li class="list-group-item">Complete: <%= rock.complete %> </li>
+                  <li class="list-group-item">Progress: <%= rock.progress %> </li>
+                </ul>
+                <div class="card-body">
+                  
+                  <% if (rock.userId.equals(user._id)) {%> 
+                    YES
+                    <a href="/rocks/<%= rock.id %>/edit" class="card-link">edit</a>
+                  <% } else {%>
+                    NO<a href="#" class="card-link">NO</a>
+                    <% } %> 
+    
+                      
+                </div>
+              </div>
+            </div>
+          <!-- END OF ROCKS CARD -->
           <% }) %> 
-        </div>
-        <!-- END OF ROCKS CARD -->
-
+        </div> <!-- END row class at start of card-->
       </div>
       <!--  END OF CARDbody -->
 
@@ -136,23 +131,6 @@
             </tr>
 
 
-
-            <tr>
-              <% if (project.usersAssigned.includes(user._id)) {%> 
-                <td>
-                  <form action="/projects/<%= project._id %>?_method=DELETE" method="POST">
-                    <button type="submit">Delete</button>
-                  </form>
-                </td>
-              <% } else { %> 
-                <td>
-                  <form id = "add-review-form" action="/projects/<%= project.id %>"
-                      method="POST">
-                      <button type="submit">Assign</button>
-                  </form>  
-                </td>
-              <% } %> 
-            </tr>
         
 
     </tbody>
@@ -242,9 +220,10 @@
       <br>
     <label>Priority:</label>
       <select name="piority" id="">
-        <option value="High">High</option>
+        <option value="name">High</option>
         <option value="Moderate">Moderate</option>
         <option value="Low">Low</option>
+        <option> test</option>
       </select>
       <br>
     <label>Difficulty</label>
@@ -254,10 +233,10 @@
       <select name="userId">
         <option></option>
       </select>
-    <label>
+    
       <br>
     <input type="submit" value="Add">
-  </label>
+
   
 </form>
 </section>

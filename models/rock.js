@@ -9,8 +9,12 @@ const rockSchema = new Schema({
     userId: {type: Schema.Types.ObjectId, ref: 'User', autopopulate: true},
     userName: String,
     userAvatar: String,
+    priority: {
+      type: String,
+      default: 'Normal',
+      enum:[ 'Urgent', 'High', 'Normal', 'Low']
+    },  
     
-    priority: String, // high/ low/ intermediate
     // steps: [{type: Schema.Types.ObjectId, ref: 'Step'}],  // ADD LATER
     difficulty: {type: Number, max: 10, min:1},
     progress: Number,

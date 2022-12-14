@@ -50,13 +50,16 @@ async function saveEdit(req, res) {
 async function editRock(req, res) {
     try {
 
-        console.log('===========  EDIT ROCK ===============');
+        console.log('===========  EDIT ROCK start===============');
+        console.log(req.body, ' REQ BODY')
+        
         const rockDoc = await Rock.findById(req.params.id)
             .populate("userId")
             .populate("projectId")
             .exec();
 
 
+            console.log('===========  EDIT ROCK stop===============');
         res.render('rocks/edit', {rock: rockDoc});
     } catch(err) {
         console.log(err);
@@ -78,18 +81,28 @@ async function deleteRock(req, res) {
 
 async function create(req, res) {
     try {    
+        console.log(req.body, ' <-------- REQ BODY create ROCKs ctrl')
+        
         const projectDoc = await Project.findById(req.params.id);
 
         req.body.userId = req.user._id;
         req.body.userName = req.user.name;
         req.body.userAvatar = req.user.avatar;
-        req.body.projectId = projectDoc._id;
         
+        req.body.projectId = projectDoc._id;
+        req.body.complete = false;
+        req.body.progress = 0.
+        console.log(req.body, ' <-------- REQ BODY create ROCKs ctrl AFTER adding reqs')
         const newRock = await Rock.create(req.body);
+        console.log(newRock, ' NEW ROCK -----------')
+        
 
         const rockDoc = await Rock.findById(newRock._id)
             .populate("userId")
             .populate("projectId");
+
+        console.log(rockDoc, 'ROCK DOC =================')
+
             
             
             projectDoc.rocks.push(rockDoc);
@@ -99,15 +112,15 @@ async function create(req, res) {
                 .populate("rocks")
                 .exec();
 
-            projectDoc.save(function(err) {            
-
-                res.redirect(`/projects/${ req.params.id }`);
-                // res.redirect(`/projects/${ projectDoc.id }`);
-            })    
             rockDoc.save( function(err) {
                 if (err) return res.send('projectDoc SAve Error rocks controller create');
                 
-   
+                
+                projectDoc.save(function(err) {            
+
+                    res.redirect(`/projects/${ req.params.id }`);
+                    // res.redirect(`/projects/${ projectDoc.id }`);
+                })    
             })        
     } catch(err) {
         console.log(err);
