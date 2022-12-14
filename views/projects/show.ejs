@@ -77,10 +77,14 @@
                   <li class="list-group-item">Priority: <%= rock.priority %> </li>
                   <li class="list-group-item">Diffuculty: <%= rock.difficulty %> </li>
                   <li class="list-group-item">Complete: <%= rock.complete %> </li>
-                  <li class="list-group-item">Progress: <%= rock.progress %> </li>
+                  <li class="list-group-item">
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="<%= rock.progrss %> " aria-valuemin="0" aria-valuemax="0"><%= rock.progress %> </div>
+                    </div>
+                    Progress: <%= rock.progress %> </li>
                   <li class="list-group-item">
                   <li class="list-group-item">
-                    <p class="list-text">Note: <%= rock.userNotes %> </p>
+                    <p class="list-text">Note: <%= rock.userNote %> </p>
                   </li>
                 </ul>
 

@@ -13,32 +13,41 @@ async function saveEdit(req, res) {
     try {
         // console.log('===========================================');
         // console.log('===========================================');
-        // console.log(req.params.id, ' <------- req.params.id')
+        console.log(req.params.id, ' <------- req.params.id')
         // console.log('+++++++++++++++++++++++++++++++++++++++++++');
         console.log(req.body, ' <------- req.body')
         console.log('===========  SAVE EDIT ===============');
-        
-        const rockDoc = await Rock.findById(req.params.id)
-            .populate("userId")
-            .populate("projectId")
-            .exec();
+        const projectDoc = await Project.findById(req.params.id);
+        const rockDoc = await Rock.findByIdAndUpdate(req.params.id)
+        .populate('userId')
+        .populate('projectId');    
+        console.log(rockDoc, ' <------- rockDoc (BEFORE)')      
     
         rockDoc.title = req.body.title;
         rockDoc.description = req.body.description;
         rockDoc.category = req.body.category;
         rockDoc.priority = req.body.priority;
         rockDoc.difficulty = req.body.difficulty;
-        rockDoc.userName = req.body.userName;
         rockDoc.userId = req.body.userId;
         rockDoc.progress = req.body.progress;
-        rockDoc.userNote = req.body.userNote
+        rockDoc.userNote = req.body.userNote;
+        // rockDoc.userName = req.body.assignUser.name;
+        // rockDoc.userAvatar = req.body.assignUser.avatar;
+        
+
+
         console.log('+++++++++++++++++++++++++++++++++++++++++++');
         console.log(rockDoc, ' <------- rockDoc ()')
         // const projectDoc = await Project.findById(rockDoc.projectId.id).exec();
 
         
-        console.log(rockDoc, '<-- rockDoc SAVING ')
+        
         rockDoc.save(function(err) {
+            const rock = Rock.findById(rockDoc._id)
+                .populate('userId')
+                .populate('projectId')
+            console.log(rockDoc, '<-- rockDoc SAVING ')
+
             res.redirect(`/projects/${rockDoc.projectId._id}`)
         })            
         
@@ -106,26 +115,20 @@ async function create(req, res) {
         const newRock = await Rock.create(req.body);
         console.log(newRock, ' NEW ROCK -----------')
         
-
         const rockDoc = await Rock.findById(newRock._id)
             .populate("userId")
             .populate("projectId");
 
         console.log(rockDoc, 'ROCK DOC =================')
 
-            
-            
             projectDoc.rocks.push(rockDoc);
             Project.findById(req.params.id)
                 .populate("userCreated")
                 .populate("usersAssigned")
                 .populate("rocks")
                 .exec();
-
             rockDoc.save( function(err) {
                 if (err) return res.send('projectDoc SAve Error rocks controller create');
-                
-                
                 projectDoc.save(function(err) {            
 
                     res.redirect(`/projects/${ req.params.id }`);
