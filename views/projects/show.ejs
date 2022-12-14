@@ -88,18 +88,14 @@
                   </li>
                 </ul>
                 <div class="card-body">
-                  <% if (rockObj.userId.equals(user._id)) {%> 
+                  <% if (user._id.equals(rockObj.userId)) {%> 
                     <p class="card-text">Assigned
                       <a href="/rocks/<%= rockObj.id %>/edit" class="card-link">edit</a>
                     </p>
                   <% } else {%>
-                    <p class="card-text">Assigned to <%= rock.userName %> </p>
+                    <p class="card-text">Assigned to <%= rockObj.userName %> </p>
                     <% } %> 
-                
-
-    
-                      
-                
+                </div>
               </div>
             </div>
           <!-- END OF ROCKS CARD -->

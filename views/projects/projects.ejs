@@ -1,30 +1,31 @@
 <%- include('../partials/header') %>
 
 
-<% if (projects.length) { %>
+
   <% projects.forEach(function(project) { %>
     <div class="card">
       <div class="card-header">
         <a href="/projects/<%= project._id %>/edit" class="btn btn-secondary">Edit</a>
         <a href="/projects/<%= project._id %>" class="btn btn-primary"> Details</a>
           Priority: <%= project.priority %>
-          <tr>
-            <% if (project.userCreated.equals(user._id)) {%> 
-              <td>
-                <form action="/projects/<%= project._id %>?_method=DELETE" method="POST">
-                  <button type="submit">Delete</button>
-                </form>
-              </td>
-            <% } else { %> 
-              <td>
-                <form id = "add-review-form" action="/projects/<%= project.id %>"
-                    method="POST">
-                    <button type="submit">Assign</button>
-                </form>  
-              </td>
-            <% } %> 
-          </tr>
+        
+          <% if (project.userCreated.equals(user._id)) {%> 
+            <td>
+              <form action="/projects/<%= project._id %>?_method=DELETE" method="POST">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
 
+          <% } else { %> 
+            <td>
+              <form id = "add-review-form" action="/projects/<%= project.id %>"
+                  method="POST">
+                  <button type="submit">Assign</button>
+              </form>  
+            </td>
+
+          <% } %> 
+        
       </div>
       <div class="card-body">
         <h2 class="card-title text-center"><%= project.title %> </h2>
@@ -53,10 +54,10 @@
             </ul>
           </li>
         </ul>
-    
+
         <div class="row row-cols-3 row-cols-md-3 g-4">
           <% project.rocks.forEach(function(rock) { %>
-            <% if (user && user._id.equals(rock.userId) && project._id.equals(rock.projectId)) { %>    
+            <% if (project._id.equals(rock.projectId)) { %>    
               <div class="col">
     
                 <div class="card h-100 text-center">
@@ -87,12 +88,9 @@
                       <p class="list-text">Note: <%= rock.userNote %> </p>
                     </li>
                   </ul>
-
-
-
-
-
-
+                  <div class="card-">
+                    <p class="card-text">Assigned to <%= rock.userName %> </p>
+                  </div>
                 </div>
               </div>
                   <!--  END OF ROCKScard -->
@@ -101,72 +99,11 @@
           <!--END OF ROCKS for each -->
           </div>
         </div> 
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-                <!-- START ROCKS CARD -->
-          
-          <% project.rocks.forEach(function(rock) { %> 
-            <div class="col">
-              <div class="card h-100" >
-                <div class="card-body">
-                  <h5 class="card-title"><%= rock.title %> </h5>
-                  <p class="card-text"> <%= rock.description %> </p>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Category: <%= rock.category %> </li>
-                  <li class="list-group-item">Priority: <%= rock.priority %> </li>
-                  <li class="list-group-item">Diffuculty: <%= rock.difficulty %> </li>
-                  <li class="list-group-item">Complete: <%= rock.complete %> </li>
-                  <li class="list-group-item">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="<%= rock.progrss %> " aria-valuemin="0" aria-valuemax="0"><%= rock.progress %> </div>
-                    </div>
-                    Progress: <%= rock.progress %> </li>
-                  <li class="list-group-item">
-                  <li class="list-group-item">
-                    <p class="list-text">Note: <%= rock.userNote %> </p>
-                  </li>
-                </ul>
-    
-                <div class="card-">
-                    <p class="card-text">Assigned to <%= rock.userName %> </p>
-
-                </div>
-              </div>
-            </div>
-          <!-- END OF ROCKS CARD -->
-          <% }) %> 
-        </div> <!-- END row class at start of card-->
-      </div>
-      <!--  END OF CARDbody -->
-    
-    <% }) %> 
-
-  <% } else { %>
-    <h5>No Projects Available</h5>
-    <% } %>
-
-
- 
+      <% }) %> 
+ <br>
 
 
 
-
-=========================================================================================
-=========================================================================================
-
-<div class="card text-center">
-  <div class="card-header">
-    Featured
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-  <div class="card-footer text-muted">
-    2 days ago
-  </div>
-</div>
 
 
 <h1> All Projects</h1>

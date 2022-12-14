@@ -2,7 +2,53 @@
 
 
 
-<%- include('../partials/sections/projectCard') %> 
+<% projects.forEach(function(project) { %>
+    <% if (project.usersAssigned.includes(user._id)) { %>         
+      <div class="card">
+        <h7 class="card-header"><%= project.priority %> </h7>
+        <div class="card-body">
+          <h5 class="card-title text-center"><%= project.title %> </h5>
+          <p class="card-text text-center">
+            <%= project.description %> 
+          </p>
+          <a href="/projects/<%= project._id %> " class="btn btn-primary">Details</a>
+        
+          <div class="row row-cols-3 row-cols-md-3 g-4">
+            <% rocks.forEach(function(rock) { %>
+              <% if (user && user._id.equals(rock.userId) && project._id.equals(rock.projectId)) { %>    
+                <div class="col">
+  
+                  <div class="card h-100 text-center">
+                    <div class="card-header">
+                      <h5 class="card-title"><%= rock.title %></h5>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text"><%= rock.description %> </p>
+                      <div class="card-text"> Category: <%= rock.category %> </div>
+                    </div>
+                    <div class="card-footer">
+                        <img alt="avatar" src="<%= rock.userAvatar %>" referrerpolicy="no-referrer">
+                        <h6 class="card-text"> <%= rock.userName %> </h6>
+                    </div>
+                    <div class="card-footer text-muted">
+                      Created by: <%= project.userCreatedName %> on <%= project.createdAt.toLocaleDateString() %> 
+                    </div>
+                  </div>
+                </div>
+                    <!--  END OF ROCKScard -->
+              <% }  %>
+            <% }); %> 
+            <!--END OF ROCKS for each -->
+            </div>
+          </div> 
+        </div>
+        <!--  END OF CARDbody -->
+      </div>
+      <!-- END OF CARD -->
+    <% }  %>
+    <!-- / END OF project Assigned -->
+  <% }); %>
+  <!-- END of Projects for each -->
 
 
 
