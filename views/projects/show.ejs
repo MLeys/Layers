@@ -106,7 +106,91 @@
         </div> <!-- END row class at start of card-->
       </div>
       <!--  END OF CARDbody -->
-
+=========================================================================================
+      <div class="card newProject">
+        <form id="form-add-rock" method="POST"
+        action="/projects/<%= project._id%>/rocks">
+        <input type="hidden" name="userId" value="<% user %> ">
+        <h5 class="card-title text-center">Create New Rock</h5>
+          <div class="row g-3">
+            <div class="col-md">
+              <div class="form-floating mb-3">
+                <input name="title" type="text" class="form-control" id="floatingInput">
+                <label for="floatingInput">Title</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select name="category" class="form-select" id="floatingSelectGrid">
+                  <option selected> </option>
+                  <%- rockCategories.map(s=>
+                  `<option value="${s}">${s}</option>`
+                  ).join('') %>
+                </select>
+                <label for="floatingSelectGrid">Choose Category: </label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select name="priority" class="form-select" id="floatingSelectGrid">
+                  <option selected> </option>
+                  <%- rockPriorities.map(s=>
+                  `<option value="${s}">${s}</option>`
+                  ).join('') %>
+                </select>
+                <label for="floatingSelectGrid">Set Priority</label>
+              </div>
+            </div>
+          </div><!-- END ROW-->
+      
+          <!-- START SECOND ROW -->
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col-md">
+              <div class="form-floating">
+                <select name="difficulty" class="form-select" id="floatingSelectGrid">
+                  
+                  <%- rangeTen.map(num=>
+                  `<option value="${num}">${num}</option>`
+                  ).join('') %>
+                  
+                </select>
+                <label for="floatingSelectGrid">Set Difficulty Level</label>
+              </div>
+            </div>
+ 
+      
+          
+      
+          </div>
+          <!-- END SECOND ROW -->
+      
+      <!-- START THIRD ROW -->
+        <div class="row row-cols-1 row-cols-md-2 g-4">  
+          <div class="mb-3">
+            <label for="floatingTextarea2">Description:</label>
+            <textarea name="description"   class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+            
+          </div>
+          <div class="mb-3">
+            <label for="floatingTextarea1">Notes:</label>
+            <textarea name="userNote"  class="form-control" id="floatingTextarea1" style="height: 100px"></textarea>
+            
+          </div>
+        </div>
+      
+      <!-- END THIRD ROW -->
+      <!-- START FOURTH ROW -->
+   
+      
+      <!-- END FOURTH ROW -->
+      
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit">Save</button>
+          </div>
+      
+          
+        </form> <!-- END FORM(project-form)-->
+      </div> <!-- END CARD (newProject) -->
     </div>
     <!-- END OF CARD -->
 

@@ -125,6 +125,9 @@ async function deleteProject(req, res) {
 
 async function show(req, res) {
     try {
+        const rockCategories = [ 'Team', 'Project', 'Personal', 'Base', 'Other', 'Activity'];
+        const rockPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
+        const rangeTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         console.log(req.params.id, '<-- req.params.id===ctrl.project.show')
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
@@ -136,11 +139,16 @@ async function show(req, res) {
         const rocksDocs = await Rock.find( {projectId: projectDoc})
         .populate('userId')
         .populate('projectId');
+        const userDocs = User.find({});
 
         // console.log(rocksDocs, ' ======== ROCKS DOCS')
         res.render('projects/show', { 
             project: projectDoc,
-            rocks: rocksDocs
+            rocks: rocksDocs,
+            userDocs,
+            rockCategories,
+            rockPriorities,
+            rangeTen,
         });
     } catch(err) {
         console.log(err);

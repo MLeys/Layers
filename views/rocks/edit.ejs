@@ -51,7 +51,7 @@
       <div class="col-md">
         <div class="form-floating">
           <select name="userId" value="<%= rock.userId %>"  class="form-select" id="floatingSelect" aria-label="Floating label select example">
-            <option value="<%= rock.userId %>" selected><%= rock.userId.name %> - <%= rock.userId.email %></option>
+            <option selected><%= rock.userId.name %> - <%= rock.userId.email %></option>
             <%- userDocs.map(userDoc=>
             `<option value="${userDoc._id}">${userDoc.name} - ${userDoc.email}</option>`
             ).join('') %>
@@ -98,7 +98,7 @@
 <!-- END FOURTH ROW -->
 
     <div class="d-grid gap-2">
-      <button class="btn btn-primary" type="submit" value="saveRock">Save</button>
+      <button class="btn btn-primary" type="submit" value="saveEdit">Save</button>
     </div>
 
     

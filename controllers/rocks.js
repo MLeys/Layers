@@ -11,6 +11,7 @@ module.exports = {
 
 async function saveEdit(req, res) {
     try {
+        
         // console.log('===========================================');
         // console.log('===========================================');
         console.log(req.params.id, ' <------- req.params.id')
@@ -62,7 +63,7 @@ async function editRock(req, res) {
     try {
         const rockCategories = [ 'Team', 'Project', 'Personal', 'Base', 'Other', 'Activity'];
         const rockPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
-        const rangeTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        const rangeTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         console.log('===========  EDIT ROCK start===============');
         console.log(req.body, ' REQ BODY')
         
