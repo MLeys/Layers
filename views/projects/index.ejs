@@ -1,7 +1,5 @@
 <%- include('../partials/header') %>
 
-
-
 <% projects.forEach(function(project) { %>
     <% if (project.usersAssigned.includes(user._id)) { %>         
       <div class="card">
@@ -11,11 +9,14 @@
           <p class="card-text text-center">
             <%= project.description %> 
           </p>
-          <a href="/projects/<%= project._id %> " class="btn btn-primary">Details</a>
+          
+          <div class="card-body">
+            <a href="/projects/<%= project._id %> " class="btn btn-primary">Details</a>
+          </div>
         
           <div class="row row-cols-3 row-cols-md-3 g-4">
             <% rocks.forEach(function(rock) { %>
-              <% if (user && user._id.equals(rock.userId) && project._id.equals(rock.projectId)) { %>    
+                <% if (project._id.equals(rock.projectId)) { %>    
                 <div class="col">
   
                   <div class="card h-100 text-center">
@@ -46,12 +47,17 @@
       </div>
       <!-- END OF CARD -->
     <% }  %>
+    <br>
     <!-- / END OF project Assigned -->
   <% }); %>
   <!-- END of Projects for each -->
 
 
-
+      
+   
+  
+  
+  
 
 
 <%- include('../partials/footer') %>

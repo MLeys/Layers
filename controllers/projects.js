@@ -89,6 +89,7 @@ async function unAssign(req, res) {
         projectDoc.usersAssigned.pop(req.user._id);
 
         projectDoc.save(function(err) {
+            console.log(err, ' error ter')
             res.redirect(`/projects`);
         })           
     } catch(err) {
