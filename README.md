@@ -14,16 +14,9 @@
     <img src="/public/images/ss12.png" width="50%" height="50%">
     <img src="/public/images/ss13.png" width="50%" height="50%">
     <img src="/public/images/ss14.png" width="50%" height="50%">
-
-
-    
 </p>
-! (/)/images
 
-
-Play here 
-
-
+[Start adding layers today!](https://mysterious-mite-sarong.cyclic.app/)
 
 Future Development:
 See Trello!
