@@ -78,14 +78,19 @@
                   <li class="list-group-item">Diffuculty: <%= rock.difficulty %> </li>
                   <li class="list-group-item">Complete: <%= rock.complete %> </li>
                   <li class="list-group-item">Progress: <%= rock.progress %> </li>
+                  <li class="list-group-item">
+                  <li class="list-group-item">
+                    <p class="list-text">Note: <%= rock.userNotes %> </p>
+                  </li>
                 </ul>
+
                 <div class="card-body">
-                  
                   <% if (rock.userId.equals(user._id)) {%> 
-                    YES
-                    <a href="/rocks/<%= rock.id %>/edit" class="card-link">edit</a>
+                    <p class="card-text">Assigned
+                      <a href="/rocks/<%= rock.id %>/edit" class="card-link">edit</a>
+                    </p>
                   <% } else {%>
-                    NO<a href="#" class="card-link">NO</a>
+                    <p class="card-text">Assigned to <%= rock.userName %> </p>
                     <% } %> 
     
                       

@@ -125,7 +125,7 @@ async function deleteProject(req, res) {
 
 async function show(req, res) {
     try {
-        console.log(req.params.id, '<-- req.params.id===ctrl.project.show')
+        // console.log(req.params.id, '<-- req.params.id===ctrl.project.show')
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
@@ -137,6 +137,7 @@ async function show(req, res) {
         .populate('userId')
         .populate('projectId');
 
+        // console.log(rocksDocs, ' ======== ROCKS DOCS')
         res.render('projects/show', { 
             project: projectDoc,
             rocks: rocksDocs

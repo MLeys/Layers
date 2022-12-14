@@ -16,10 +16,11 @@ const rockSchema = new Schema({
     },  
     
     // steps: [{type: Schema.Types.ObjectId, ref: 'Step'}],  // ADD LATER
-    difficulty: {type: Number, max: 10, min:1},
-    progress: Number,
-    complete: Boolean,
+    difficulty: {type: Number, max: 10, min:1, default: 5},
+    progress: {type: Number, default: 0},
+    complete: {type: Boolean, default: false},
     projectId: {type: Schema.Types.ObjectId, ref: 'Project', autopopulate: true},
+    userNote: {type: String, default: ''}
     
   }, {
     timestamps: true
