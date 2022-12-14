@@ -5,6 +5,7 @@
 #### Created using HTML, CSS, and JavaScript, espress, mongoose, mongoDb, node.js, passport
 
 <p align-content="center">
+    <img src="/public/images/trello-board.png" width="50%" height="50%">
     <img src="/public/images/board.jpeg" width="50%" height="50%">
     <img src="/public/images/crud-printed.jpeg" width="50%" height="50%">
     <img src="/public/images/CRUD-form.jpeg" width="50%" height="50%">
