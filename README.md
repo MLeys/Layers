@@ -25,7 +25,6 @@
 [Start adding layers today!](https://mysterious-mite-sarong.cyclic.app/)
 
 Future Development:
-See Trello!
-https://trello.com/b/o5hYQkbu/project2
+[See Trello!](https://trello.com/b/o5hYQkbu/project2/)
 
 
