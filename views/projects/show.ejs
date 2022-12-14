@@ -110,99 +110,12 @@
 
 
 ======================================================================================
-  <table class="table table table-success table-striped table-hover table-bordered">
-    <thead>
-      <tr>
-        <th>Created</th>
-        <th>title</th>
-        <th>type</th>
-        <th>priority</th>
-        <th>Creator</th>
-
-      </tr>
-    </thead>
-    <tbody>
-            <tr>
-              <td><%= project.createdAt.toLocaleDateString() %> </td>
-              <td><a href="/projects/<%= project._id %>"> <%= project.title %></a></td>
-              <td><%= project.type %></td>
-              <td><%= project.priority %> </td>
-              <td><%= project.userCreatedName %> </td>
-              <td><%= project.projectManager %> - <%= project.projectManagerName %></td>
-            </tr>
-            <tr>
-              <td>Team:<%= project.usersAssigned %></td>
-              <td>Rocks: <%= project.rocks %></td>
-            </tr>
-
-
-        
-
-    </tbody>
-  </table>
-
-
-
-
-<section id="show-page">
-  <%= project.title %>
-  <small>Creator: <%= project.userCreated.name %> </small>
-  <small>Type: <%= project.priority %></small>
-  <a href="/projects/<%= project._id %>/edit">edit</a>
-
-  <div>Team:
-    <ul>
-      <% project.usersAssigned.forEach(user=> { %>
-        <li> 
-          <small><%= user.name %> </small>
-        </li>
-      
-        <% }) %>
-    </ul>
-  </div>
+ 
  ==============================================================================  
  ==============================================================================  
 
   <!-- END OF TEAM USERS ASSIGNED LIST -->
-  <div>Rocks:
-    <% rocks.forEach(r=> { %>
-      <table>
-        <thead>
-          <tr><th><img alt="avatar" src="<%= r.userAvatar %>" referrerpolicy="no-referrer"></th></tr>
-          <tr><th><small> <%= r.userName %>'s rock</small></th></tr>
-          <tr>
-            <th>Title: </th>
-            <th> Description</th>
-            <th> Priority</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= r.title %> </td>
-            <td> <%= r.description %> </td>
-            <td> <%= r.priority %> </td>
-            
-          </tr>
-        </tbody>
-        <% if (user && user._id.equals(r.userId)) { %>
-          <tfoot>
-            <tr>
-              <td>
-                <form action="/rocks/<%= r.id %>?_method=DELETE" method="POST">
-                  <button type="submit">DELETE</button>
-                </form>
-              </td>
-              <td>
-                <a href="/rocks/<%= r.id %>/edit">edit</a>
-              </td>
-            </tr>
-          </tfoot>
-        <% } %> 
-    </table>
-    <% }) %>
-  </div>
-  <!-- END OF ROCKS LIST -->
-</section>
+  
 ==============================================================================  
 ==============================================================================  
 <!-- END OF SHOW-PAGE SECTION -->

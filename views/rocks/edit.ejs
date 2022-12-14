@@ -1,5 +1,115 @@
 <%- include('../partials/header') %>
 
+<div class="card newProject">
+  <form id="form-edit-rock" method="POST"
+  action="/rocks/<%=rock._id%>?_method=PUT">
+    <div class="row g-3">
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input name="title" value="<%= rock.title %>" type="text" class="form-control" id="floatingInput">
+          <label for="floatingInput">Title</label>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating">
+          <select name="category" class="form-select" id="floatingSelectGrid">
+            <option selected><%= rock.category %> </option>
+            <%- rockCategories.map(s=>
+            `<option value="${s}">${s}</option>`
+            ).join('') %>
+          </select>
+          <label for="floatingSelectGrid">Choose Category: </label>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating">
+          <select name="priority" class="form-select" id="floatingSelectGrid">
+            <option selected><%= rock.priority %> </option>
+            <%- rockPriorities.map(s=>
+            `<option value="${s}">${s}</option>`
+            ).join('') %>
+          </select>
+          <label for="floatingSelectGrid">Set Priority</label>
+        </div>
+      </div>
+    </div><!-- END ROW-->
+
+    <!-- START SECOND ROW -->
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="col-md">
+        <div class="form-floating">
+          <select name="difficulty" class="form-select" id="floatingSelectGrid">
+            <option selected><%= rock.difficulty %> </option>
+            <%- rangeTen.map(num=>
+            `<option value="${num}">${num}</option>`
+            ).join('') %>
+            
+          </select>
+          <label for="floatingSelectGrid">Set Difficulty Level</label>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating">
+          <select name="userId" value="<%= rock.userId %>"  class="form-select" id="floatingSelect" aria-label="Floating label select example">
+            <option value="<%= rock.userId %>" selected><%= rock.userId.name %> - <%= rock.userId.email %></option>
+            <%- userDocs.map(userDoc=>
+            `<option value="${userDoc._id}">${userDoc.name} - ${userDoc.email}</option>`
+            ).join('') %>
+          </select>
+          <label for="floatingSelect">Assigned To:</label>
+        </div>
+      </div>
+
+    
+
+    </div>
+    <!-- END SECOND ROW -->
+
+<!-- START THIRD ROW -->
+  <div class="row row-cols-1 row-cols-md-2 g-4">  
+    <div class="mb-3">
+      <label for="floatingTextarea2">Description:</label>
+      <textarea name="description"  value="<%= rock.description %>" class="form-control" id="floatingTextarea2" style="height: 100px"><%= rock.description %></textarea>
+      
+    </div>
+    <div class="mb-3">
+      <label for="floatingTextarea1">Notes:</label>
+      <textarea name="userNote"  value="<%= rock.userNote %>" class="form-control" id="floatingTextarea1" style="height: 100px"><%= rock.usernote %></textarea>
+      
+    </div>
+  </div>
+
+<!-- END THIRD ROW -->
+<!-- START FOURTH ROW -->
+<div class="row">
+  <div class="mb3 text-center">
+    <label for="customRange2" class="form-label">Progress</label>
+    <input name="progress" value="<%= rock.progress %> " type="range" class="form-range" min="0" max="10" id="customRange2">
+  </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- END FOURTH ROW -->
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="submit" value="saveRock">Save</button>
+    </div>
+
+    
+  </form> <!-- END FORM(project-form)-->
+</div> <!-- END CARD (newProject) -->
+
+================================================================================
+================================================================================
+================================================================================
+================================================================================
+
 <section>
     <h3>Edit Rock</h3>
     <form id="add-review-form" method="POST"

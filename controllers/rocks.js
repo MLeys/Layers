@@ -1,4 +1,4 @@
-
+const User = require("../models/user")
 const Project = require("../models/project");
 const Rock = require("../models/rock");
 
@@ -29,7 +29,9 @@ async function saveEdit(req, res) {
         rockDoc.priority = req.body.priority;
         rockDoc.difficulty = req.body.difficulty;
         rockDoc.userName = req.body.userName;
-        rockDoc.userId = req.user._id;
+        rockDoc.userId = req.body.userId;
+        rockDoc.progress = req.body.progress;
+        rockDoc.userNote = req.body.userNote
         console.log('+++++++++++++++++++++++++++++++++++++++++++');
         console.log(rockDoc, ' <------- rockDoc ()')
         // const projectDoc = await Project.findById(rockDoc.projectId.id).exec();
@@ -49,18 +51,26 @@ async function saveEdit(req, res) {
 
 async function editRock(req, res) {
     try {
-
+        const rockCategories = [ 'Team', 'Project', 'Personal', 'Base', 'Other', 'Activity'];
+        const rockPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
+        const rangeTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         console.log('===========  EDIT ROCK start===============');
         console.log(req.body, ' REQ BODY')
         
+        const userDocs = await User.find({});
         const rockDoc = await Rock.findById(req.params.id)
             .populate("userId")
-            .populate("projectId")
-            .exec();
-
+            .populate("projectId");
+            
 
             console.log('===========  EDIT ROCK stop===============');
-        res.render('rocks/edit', {rock: rockDoc});
+        res.render('rocks/edit', {
+            rock: rockDoc,
+            rockCategories,
+            rockPriorities,
+            userDocs,
+            rangeTen
+        });
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.rocks.editRock')
