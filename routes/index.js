@@ -39,7 +39,7 @@ router.get('/logout', function(req, res){
   // destroy the session cookie, so we don't know who the user is anymore
 
   req.logout(function() {
-    res.redirect('/projects');
+    res.redirect('/');
   });
 });
 

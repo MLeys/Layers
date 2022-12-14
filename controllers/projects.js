@@ -17,20 +17,39 @@ module.exports = {
 };
 
 
+
 async function saveEdit(req, res) {
     try {
         console.log(req.params.id, ' <------- req.params.id in projects saveEdit')
-        const projectDoc = await Project.findById(req.params.id)
-            .populate("userCreated")
-            .populate("usersAssigned")
-            .populate("rocks")
-            .exec();
-        projectDoc.title = req.body.title,
-        projectDoc.type = req.body.type,
-        projectDoc.priority = req.body.priority,
-        projectDoc.userCreated = req.user._id
+        
+        const projectDoc = await Project.findById(req.params.id);
+        console.log(projectDoc, ' ************************** ORIGINAL GRABBED DOC')
+
+        projectDoc.title = req.body.title;
+        projectDoc.type = req.body.type;
+        projectDoc.priority = req.body.priority;
+        projectDoc.description = req.body.description;
+        projectDoc.projectManager = req.body.manager;
+        projectDoc.projectManagerName = req.body.manager.name;
+        projectDoc.projectManagerAvatar = req.body.manager.avatar;
+        projectDoc.userCreated = req.user._id;
+        projectDoc.userCreatedName = req.user._id;
+        projectDoc.userCreatedAvatar = req.user.avatar;
+
+        console.log(req.body, ' REQ BODY =================');
+
+        
 
         projectDoc.save(function(err) { // CHECK IF THIS CAN BE 'project'
+                
+            const project = Project.findById(projectDoc._id)
+            .populate("userCreated")
+            .populate("usersAssigned")
+            .populate('projectManager')
+            .populate("rocks")
+            ;
+            console.log(projectDoc, ' PROJECT DOC ============== SAVED')
+            console.log(project, ' PROJEC ============== SAVED')
             res.redirect(`/projects/${projectDoc._id}`)
         })            
     } catch(err) {
@@ -41,13 +60,23 @@ async function saveEdit(req, res) {
 
 async function editProject(req, res) {
     try {
+        const projectTypes = [ 'Company', 'Team', 'Personal', 'Other'];
+        const projectPriorities = [ 'Urgent', 'High', 'Normal', 'Low'];
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
+            .populate('projectManager')
             .populate("rocks")
-            .exec();
-        
-        res.render('projects/edit', {project: projectDoc});
+            .populate('type')
+            .populate('priority')
+            ;
+            const userDocs = await User.find({});
+        res.render('projects/edit', {
+            project: projectDoc,
+            projectTypes,
+            projectPriorities,
+            userDocs
+        });
     } catch(err) {
         console.log(err);
         console.log('TERMINAL ERROR ---> ctrl.projects.editProject')
@@ -100,9 +129,13 @@ async function show(req, res) {
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
+            .populate('projectManager')
             .populate("rocks")
-            ;
-        const rocksDocs = await Rock.find( {projectId: projectDoc});
+            .populate('type')
+            .populate('priority')
+        const rocksDocs = await Rock.find( {projectId: projectDoc})
+        .populate('userId')
+        .populate('projectId');
 
         res.render('projects/show', { 
             project: projectDoc,
@@ -121,11 +154,14 @@ async function addAssigned(req, res) {
         const projectDocs = await Project.find()
             .populate("userCreated")
             .populate("usersAssigned")
-            .populate("rocks");
+            .populate("rocks")
+            .populate('projectManager');
+
         const projectDoc = await Project.findById(req.params.id)
             .populate("userCreated")
             .populate("usersAssigned")
-            .populate("rocks");
+            .populate("rocks")
+            .populate('projectManager');
         projectDoc.usersAssigned.push(req.user.id);
 
         projectDoc.save(function(err) {
@@ -156,7 +192,7 @@ async function create(req, res) {
         req.body.userCreatedName = req.user.name;
         req.body.userCreatedAvatar = req.user.avatar;
         req.body.projectManager = req.body.manager;
-        req.body.projectManagerName = 
+        req.body.projectManagerName = req.body.manager.name;
         req.body.projectManagerAvatar = req.body.manager.avatar;
         console.log(req.body, ' <-------- REQ BODY create projects ctrl')
         console.log(req.body.manager, ' <-------- REQ BODY PARAMS create projects ctrl')

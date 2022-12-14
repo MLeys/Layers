@@ -26,7 +26,9 @@
           <th>title</th>
           <th>type</th>
           <th>priority</th>
-          <th>Creator</th>
+          <th>Creator:</th>
+          <th>Manager:</th>
+          
 
         </tr>
       </thead>
@@ -37,12 +39,12 @@
                 <td><a href="/projects/<%= p._id %>"> <%= p.title %></a></td>
                 <td><%= p.type %></td>
                 <td><%= p.priority %> </td>
-                <td><%= p.userCreatedName %> </td>
-                <td><%= p.projectManager %> - <%= p.projectManagerName %></td>
+                <td><%= p.userCreated.name %> </td>
+                <td><%= p.projectManager.name %> - <%= p.projectManager. email%></td>
               </tr>
               <tr>
-                <td>Team:<%= p.usersAssigned %></td>
-                <td>Rocks: <%= p.rocks %></td>
+                <td>Team:<%= p.usersAssigned.name %></td>
+                <td>Rocks: <%= p.rocks.name %></td>
               </tr>
 
 

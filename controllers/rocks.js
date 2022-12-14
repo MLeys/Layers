@@ -78,18 +78,20 @@ async function deleteRock(req, res) {
 
 async function create(req, res) {
     try {    
-        const projectDoc = await Project.findById(req.params.id).exec();
-            req.body.userId = req.user._id;
-            req.body.userName = req.user.name;
-            req.body.userAvatar = req.user.avatar;
-            req.body.projectId = projectDoc._id;
+        const projectDoc = await Project.findById(req.params.id);
+
+        req.body.userId = req.user._id;
+        req.body.userName = req.user.name;
+        req.body.userAvatar = req.user.avatar;
+        req.body.projectId = projectDoc._id;
         
         const newRock = await Rock.create(req.body);
 
         const rockDoc = await Rock.findById(newRock._id)
-            .populate("projectId")
             .populate("userId")
-            .exec();
+            .populate("projectId");
+            
+            
             projectDoc.rocks.push(rockDoc);
             Project.findById(req.params.id)
                 .populate("userCreated")

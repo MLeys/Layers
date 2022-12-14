@@ -1,17 +1,69 @@
 <%- include('../partials/header') %>
-
-<form id="new-form" method="POST"
+<main class ="main-newProject">
+  <div class="card newProject">
+    <form id="project-form" method="POST"
   action="/projects/<%= project._id %>?_method=PUT">
-    <label>Title:</label>
-    <input type="text" name="title" value="<%= project.title %>">  
-    <label>Type:</label>
-    <input type="text" name="type" value="<%= project.type %>">
-    <label>Priority</label>
-    <input type="text" name="priority" value="<%= project.priority %>">
 
-    <input type="submit" value="Save">
+      <input type="hidden" name="userCreated" value="<% user %> ">
+      <div class="row g-3">
+        <div class="col-md">
+          <div class="form-floating mb-3">
+            <input name="title" value="<%= project.title %>" type="text" class="form-control" id="floatingInput" placeholder="Title!">
+            <label for="floatingInput">Title</label>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="form-floating">
+            <select name="type" class="form-select" id="floatingSelectGrid">
+              <option selected><%= project.type %> </option>
+              <%- projectTypes.map(s=>
+              `<option value="${s}">${s}</option>`
+              ).join('') %>
+            </select>
+            <label for="floatingSelectGrid">Select Type</label>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="form-floating">
+            <select name="priority" class="form-select" id="floatingSelectGrid">
+              <option selected><%= project.priority %> </option>
+              <%- projectPriorities.map(s=>
+              `<option value="${s}">${s}</option>`
+              ).join('') %>
+            </select>
+            <label for="floatingSelectGrid">Set Priority</label>
+          </div>
+        </div>
+      </div><!-- END ROW-->
+      <div class="mb-3">
+        <label for="floatingTextarea2">Description</label>
+        <textarea name="description"  value="<%= project.description %>" class="form-control" id="floatingTextarea2" style="height: 100px"><%= project.description %></textarea>
+        
+      </div>
 
-</form>
+      <div class="form-floating">
+        <select name="manager" value="<%= project.projectManager %>"  class="form-select" id="floatingSelect" aria-label="Floating label select example">
+          <option value="<%= project.projectManager %>" selected><%= project.projectManager.name %> - <%= project.projectManager.email %></option>
+          <%- userDocs.map(userDoc=>
+          `<option value="${userDoc._id}">${userDoc.name} - ${userDoc.email}</option>`
+          ).join('') %>
+        </select>
+        <label for="floatingSelect">Project Manager</label>
+      </div>
+
+
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit" value="editProject">Save</button>
+  
+      </div>
+
+      
+    </form> <!-- END FORM(project-form)-->
+  </div> <!-- END CARD (newProject) -->
+</main> <!-- END MAIN-->
+
+
+
 
 
 <%- include('../partials/footer') %>
