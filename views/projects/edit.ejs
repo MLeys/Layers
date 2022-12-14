@@ -43,7 +43,7 @@
 
       <div class="form-floating">
         <select name="manager" value="<%= project.projectManager %>"  class="form-select" id="floatingSelect" aria-label="Floating label select example">
-          <option value="<%= project.projectManager %>" selected><%= project.projectManager.name %> - <%= project.projectManager.email %></option>
+          <option value="<%= project.projectManager %>" selected><%= project.projectManager.name %> - <%= project.projectManager.name %></option>
           <%- userDocs.map(userDoc=>
           `<option value="${userDoc._id}">${userDoc.name} - ${userDoc.email}</option>`
           ).join('') %>
@@ -53,7 +53,7 @@
 
 
       <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit" value="editProject">Save</button>
+        <button class="btn btn-primary" type="submit" value="<%= project._id %> ">Save</button>
   
       </div>
 

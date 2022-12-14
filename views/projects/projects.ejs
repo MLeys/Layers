@@ -3,29 +3,13 @@
 
 
   <% projects.forEach(function(project) { %>
-    <div class="card">
+  <div class="card">
+    <div class="card-body">
       <div class="card-header">
         <a href="/projects/<%= project._id %>/edit" class="btn btn-secondary">Edit</a>
         <a href="/projects/<%= project._id %>" class="btn btn-primary"> Details</a>
           Priority: <%= project.priority %>
-        
-          <% if (project.userCreated.equals(user._id)) {%> 
-            <td>
-              <form action="/projects/<%= project._id %>?_method=DELETE" method="POST">
-                <button type="submit">Delete</button>
-              </form>
-            </td>
 
-          <% } else { %> 
-            <td>
-              <form id = "add-review-form" action="/projects/<%= project.id %>"
-                  method="POST">
-                  <button type="submit">Assign</button>
-              </form>  
-            </td>
-
-          <% } %> 
-        
       </div>
       <div class="card-body">
         <h2 class="card-title text-center"><%= project.title %> </h2>
@@ -45,22 +29,14 @@
               <% }) %> 
             </ul>
           </li>
-          <li class="list-group-item">Rocks:
-            <ul>
-              <% project.rocks.forEach(function(rock) { %> 
-                <li class="list-group-item"> <%= rock.title %> </li>
-    
-              <% }) %> 
-            </ul>
-          </li>
-        </ul>
+
 
         <div class="row row-cols-3 row-cols-md-3 g-4">
           <% project.rocks.forEach(function(rock) { %>
             <% if (project._id.equals(rock.projectId)) { %>    
-              <div class="col">
+              <div class="col">Rock:
     
-                <div class="card h-100 text-center">
+                <div class="card h-90 text-center">
                   <div class="card-header">
                     <h4 class="card-title"><%= rock.title %></h4>
                   </div>
@@ -77,13 +53,8 @@
                     <li class="list-group-item">Category: <%= rock.category %> </li>
                     <li class="list-group-item">Priority: <%= rock.priority %> </li>
                     <li class="list-group-item">Diffuculty: <%= rock.difficulty %> </li>
-                    <li class="list-group-item">Complete: <%= rock.complete %> </li>
-                    <li class="list-group-item">
-                      <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: 25%;" aria-valuenow="<%= rock.progrss %> " aria-valuemin="0" aria-valuemax="0"><%= rock.progress %> </div>
-                      </div>
-                      Progress: <%= rock.progress %> </li>
-              
+                    
+   
                     <li class="list-group-item">
                       <p class="list-text">Note: <%= rock.userNote %> </p>
                     </li>
@@ -99,69 +70,30 @@
           <!--END OF ROCKS for each -->
           </div>
         </div> 
-      <% }) %> 
- <br>
-
-
-
-
-
-<h1> All Projects</h1>
-
-<% if (projects.length) { %>
-    <table class="table table table-success table-striped table-hover table-bordered">
-      <thead>
-        <tr>
-          <th>Created</th>
-          <th>title</th>
-          <th>type</th>
-          <th>priority</th>
-          <th>Creator:</th>
-          <th>Manager:</th>
+        <div class="card-footer">
+          <% if (project.userCreated.equals(user._id)) {%> 
+              
+            <form action="/projects/<%= project._id %>?_method=DELETE" method="POST">
+              <button type="submit">Delete</button>
+            </form>
+            
+          <% } %> 
           
-
-        </tr>
-      </thead>
-      <tbody>
-          <% projects.forEach(function(p) { %>
-              <tr>
-                <td><%= p.createdAt.toLocaleDateString() %> </td>
-                <td><a href="/projects/<%= p._id %>"> <%= p.title %></a></td>
-                <td><%= p.type %></td>
-                <td><%= p.priority %> </td>
-                <td><%= p.userCreated.name %> </td>
-                <td><%= p.projectManager.name %> - <%= p.projectManager. email%></td>
-              </tr>
-              <tr>
-                <td>Team:<%= p.usersAssigned.name %></td>
-                <td>Rocks: <%= p.rocks.name %></td>
-              </tr>
+          <form id = "add-review-form" action="/projects/<%= project.id %>"
+              method="POST">
+              <button type="submit">Assign</button>
+          </form>  
+  
+        </div>
+      </div>
+    <div>
+      <br>
+    <% }) %> 
+ 
 
 
 
-              <tr>
-                <% if (p.usersAssigned.includes(user._id)) {%> 
-                  <td>
-                    <form action="/projects/<%= p._id %>?_method=DELETE" method="POST">
-                      <button type="submit">Delete</button>
-                    </form>
-                  </td>
-                <% } else { %> 
-                  <td>
-                    <form id = "add-review-form" action="/projects/<%= p.id %>"
-                        method="POST">
-                        <button type="submit">Assign</button>
-                    </form>  
-                  </td>
-                <% } %> 
-              </tr>
-              <% }); %>
 
-      </tbody>
-    </table>
-    <% } else { %>
-      <h5>No Projects Available</h5>
-      <% } %>
 
 
 

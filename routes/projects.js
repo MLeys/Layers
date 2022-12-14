@@ -13,6 +13,7 @@ router.get('/:id/edit', isLoggedIn, projectsCtrl.edit);
 
 router.put('/:id', isLoggedIn, projectsCtrl.update);
 
+
 router.delete('/:id', isLoggedIn, projectsCtrl.delete);
 router.post('/:id/unAssign', isLoggedIn, projectsCtrl.unAssign);
 
