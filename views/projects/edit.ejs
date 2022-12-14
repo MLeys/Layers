@@ -42,8 +42,8 @@
       </div>
 
       <div class="form-floating">
-        <select name="manager" value="<%= project.projectManager %>"  class="form-select" id="floatingSelect" aria-label="Floating label select example">
-          <option value="<%= project.projectManager %>" selected><%= project.projectManager.name %> - <%= project.projectManager.name %></option>
+        <select name="manager" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+          <option value="<%= project.projectManager._id %>" selected><%= project.projectManager.name %> - <%= project.projectManager.name %></option>
           <%- userDocs.map(userDoc=>
           `<option value="${userDoc._id}">${userDoc.name} - ${userDoc.email}</option>`
           ).join('') %>

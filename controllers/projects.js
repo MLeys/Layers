@@ -30,17 +30,16 @@ async function saveEdit(req, res) {
         projectDoc.priority = req.body.priority;
         projectDoc.description = req.body.description;
         projectDoc.projectManager = req.body.manager;
-        projectDoc.projectManagerName = req.body.manager.name;
-        projectDoc.projectManagerAvatar = req.body.manager.avatar;
+        // projectDoc.projectManagerName = req.body.manager.name;
+        // projectDoc.projectManagerAvatar = req.body.manager.avatar;
         projectDoc.userCreated = req.user._id;
         projectDoc.userCreatedName = req.user._id;
         projectDoc.userCreatedAvatar = req.user.avatar;
 
         console.log(req.body, ' REQ BODY =================');
 
-        
-
         projectDoc.save(function(err) { // CHECK IF THIS CAN BE 'project'
+            console.log(err, '<---ERROR')
                 
 
             console.log(projectDoc, ' PROJECT DOC ============== SAVED')
